@@ -96,7 +96,10 @@
   .chatLog { display: flex; flex-direction: column; gap: 4px; margin-bottom: 6px; pointer-events: none; }
   .chatLog p { margin: 0; padding: 6px 10px; border-radius: 12px; background: rgba(8, 12, 13, .78); font-size: .8rem; line-height: 1.35; color: var(--tinta); word-break: break-word; }
   .chatLog p b { color: var(--verde); }
-  .chat2 input { width: 100%; padding: 10px 14px; border-radius: 999px; border: 1px solid var(--borde); background: rgba(8, 12, 13, .85); color: var(--tinta); font: inherit; font-size: .85rem; }
+  .chatFila { display: flex; gap: 6px; align-items: center; }
+  .micBtn { flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--borde); background: rgba(8, 12, 13, .85); color: var(--tinta); font-size: 1.05rem; cursor: pointer; }
+  .micBtn.on { background: var(--verde); border-color: transparent; }
+  .chat2 input { flex: 1; min-width: 0; width: 100%; padding: 10px 14px; border-radius: 999px; border: 1px solid var(--borde); background: rgba(8, 12, 13, .85); color: var(--tinta); font: inherit; font-size: .85rem; }
   .soloEquipo { display: none !important; } body.equipo .soloEquipo { display: block !important; }
   /* cada piso con su color: Pilot verde, Dommy naranja, Proclama rojo */
   .tema-dommy { --verde: #f25c1c; --verde-tinta: #1a0b04; }
@@ -328,7 +331,7 @@
 </div>
 <p id="aviso2" class="toast" hidden role="status"></p>
 <div id="enLinea" class="enLinea" hidden role="status"></div>
-<form id="chat" class="chat2" autocomplete="off"><div id="chatLog" class="chatLog" aria-live="polite"></div><input id="chatTxt" type="text" maxlength="120" placeholder="Escribe un mensaje…" aria-label="Mensaje para los demás"></form>
+<form id="chat" class="chat2" autocomplete="off"><div id="chatLog" class="chatLog" aria-live="polite"></div><div class="chatFila"><input id="chatTxt" type="text" maxlength="120" placeholder="Escribe un mensaje…" aria-label="Mensaje para los demás"><button type="button" id="bMic" class="micBtn" title="Hablar por micrófono" aria-label="Micrófono">🎙</button></div></form>
 
 <div id="propuesta" class="visor" hidden>
   <form id="propForm" class="caja pedidoCaja" autocomplete="off">
