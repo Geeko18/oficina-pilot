@@ -488,28 +488,30 @@
 </div>
 
 <div id="elegir" class="visor" hidden>
-  <div class="caja elegirCaja" role="dialog" aria-label="Elige tu personaje">
+  <div class="caja elegirCaja" role="dialog" aria-label="Entrar a la oficina">
     <p class="cargo">Bienvenido a la Oficina Pilot</p>
-    <h2>¿Cómo te llamas?</h2>
-    <div class="registro">
-      <input id="regNombre" type="text" maxlength="80" autocomplete="name" placeholder="Tu nombre" aria-label="Tu nombre">
-      <input id="regWa" type="hidden" value="">
-    </div>
-    <div class="empresaBloque">
-      <button type="button" id="empAbrir" class="enlace">¿Eres de Proclama o de Dommy? Entra a tu empresa</button>
-      <form id="empNombreForm" autocomplete="off" hidden>
+    <div id="empBloque" class="empresaBloque">
+      <h2>¿De qué empresa vienes?</h2>
+      <form id="empNombreForm" autocomplete="off">
         <select id="empCual" aria-label="Tu empresa"><option value="proclama">Proclama del Pacífico</option><option value="dommy">Dommy</option></select>
-        <input id="empNombre" type="text" placeholder="Tu nombre" aria-label="Tu nombre en la empresa">
+        <input id="empNombre" type="text" placeholder="Tu nombre" autocomplete="off" spellcheck="false" aria-label="Tu nombre">
         <input id="empCodigo" type="password" inputmode="numeric" placeholder="Tu código" autocomplete="off" aria-label="Tu código">
         <p id="empError" class="error" hidden>Nombre o código incorrectos. Revisa los dos.</p>
-        <button type="submit" class="accion sec">Verificar</button>
+        <button type="submit" class="accion">Entrar a mi empresa</button>
       </form>
-      <p id="empOk" class="nota" hidden></p>
+      <button type="button" id="empVisitante" class="enlace">Solo estoy visitando</button>
     </div>
-    <p class="elige">Elige tu personaje para entrar</p>
-    <div class="dosPers">
-      <button type="button" id="elegirM"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="16" r="10"/><path d="M14 60V40c0-9 7-14 18-14s18 5 18 14v20z"/></svg><span>Soy hombre</span></button>
-      <button type="button" id="elegirF"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="16" r="10"/><path d="M32 26c-9 0-14 5-16 13l-6 21h44l-6-21c-2-8-7-13-16-13z"/></svg><span>Soy mujer</span></button>
+    <div id="visitaBloque" hidden>
+      <h2>¿Cómo te llamas?</h2>
+      <div class="registro">
+        <input id="regNombre" type="text" maxlength="80" autocomplete="name" placeholder="Tu nombre" aria-label="Tu nombre">
+        <input id="regWa" type="hidden" value="">
+      </div>
+      <p class="elige">Elige tu personaje para entrar</p>
+      <div class="dosPers">
+        <button type="button" id="elegirM"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="16" r="10"/><path d="M14 60V40c0-9 7-14 18-14s18 5 18 14v20z"/></svg><span>Soy hombre</span></button>
+        <button type="button" id="elegirF"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="16" r="10"/><path d="M32 26c-9 0-14 5-16 13l-6 21h44l-6-21c-2-8-7-13-16-13z"/></svg><span>Soy mujer</span></button>
+      </div>
     </div>
   </div>
 </div>
@@ -526,4 +528,4 @@
 </div>
 
 <script>window.__OFICINA_BASE__ = ''; window.__OFICINA_FBX_JSON__ = true;</script>
-<script type="module" src="oficina.js?v=1af3a310"></script>
+<script type="module" src="oficina.js?v=17c42e91"></script>
