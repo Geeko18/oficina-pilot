@@ -125,7 +125,10 @@
   .manualNav .accion { margin: 0; padding: 9px 18px; }
   .vozEstado { top: calc(112px + env(safe-area-inset-top, 0px)); }
   .vozEstado::before { display: none; }
-  .chatFila { display: flex; gap: 6px; align-items: center; }
+  .chat2 .chatFila input { display: none; } .chat2.abierto .chatFila input { display: block; }
+  .chat2.abierto .chatLog { max-height: 34vh; overflow-y: auto; pointer-events: auto; }
+  .chat2.abierto .chatLog p { background: rgba(8, 12, 13, .9); }
+  .chatFila { display: flex; justify-content: flex-end; gap: 6px; align-items: center; }
   .micBtn { flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--borde); background: rgba(8, 12, 13, .85); color: var(--tinta); font-size: 1.05rem; cursor: pointer; }
   .micBtn.on { background: var(--verde); border-color: transparent; }
   .chat2 input { flex: 1; min-width: 0; width: 100%; padding: 10px 14px; border-radius: 999px; border: 1px solid var(--borde); background: rgba(8, 12, 13, .85); color: var(--tinta); font: inherit; font-size: .85rem; }
@@ -341,6 +344,17 @@
   </section>
 </div>
 
+<div id="dmAcceso" class="visor tema-dommy" hidden>
+  <form id="dmAccesoForm" class="caja" autocomplete="off">
+    <h2>Piso 3 · Dommy</h2>
+    <p>Este piso es solo para el equipo de Dommy. ¿Cómo te llamas?</p>
+    <input id="dmAccesoNombre" type="text" placeholder="Tu nombre" autocomplete="off" spellcheck="false" aria-label="Tu nombre">
+    <p id="dmAccesoError" class="error" hidden>No te encuentro en el equipo de Dommy. Escribe tu nombre como te conocen.</p>
+    <button type="submit" class="accion">Entrar</button>
+    <button type="button" id="dmAccesoCerrar" class="accion sec">Cancelar</button>
+  </form>
+</div>
+
 <div id="pedidoPro" class="visor tema-proclama" hidden>
   <form id="proForm" class="caja pedidoCaja" autocomplete="off">
     <p class="cargo">Proclama del Pacífico · Edición de video</p>
@@ -390,7 +404,7 @@
 <p id="aviso2" class="toast" hidden role="status"></p>
 <div id="enLinea" class="enLinea" hidden role="status"></div>
 <div id="vozEstado" class="enLinea vozEstado" hidden role="status"></div>
-<form id="chat" class="chat2" autocomplete="off"><div id="chatLog" class="chatLog" aria-live="polite"></div><div class="chatFila"><input id="chatTxt" type="text" maxlength="120" placeholder="Escribe un mensaje…" aria-label="Mensaje para los demás"><button type="button" id="bMic" class="micBtn" title="Hablar por micrófono" aria-label="Micrófono">🎙</button></div></form>
+<form id="chat" class="chat2" autocomplete="off"><div id="chatLog" class="chatLog" aria-live="polite"></div><div class="chatFila"><input id="chatTxt" type="text" maxlength="120" placeholder="Escribe y pulsa Enter…" aria-label="Mensaje para los demás"><button type="button" id="bChat" class="micBtn" title="Chat (Enter)" aria-label="Chat">💬</button><button type="button" id="bMic" class="micBtn" title="Hablar por micrófono" aria-label="Micrófono">🎙</button></div></form>
 
 <div id="propuesta" class="visor" hidden>
   <form id="propForm" class="caja pedidoCaja" autocomplete="off">
@@ -456,4 +470,4 @@
 </div>
 
 <script>window.__OFICINA_BASE__ = ''; window.__OFICINA_FBX_JSON__ = true;</script>
-<script type="module" src="oficina.js?v=30a70116"></script>
+<script type="module" src="oficina.js?v=7dba33a5"></script>
