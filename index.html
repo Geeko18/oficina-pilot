@@ -96,6 +96,19 @@
   .chatLog { display: flex; flex-direction: column; gap: 4px; margin-bottom: 6px; pointer-events: none; }
   .chatLog p { margin: 0; padding: 6px 10px; border-radius: 12px; background: rgba(8, 12, 13, .78); font-size: .8rem; line-height: 1.35; color: var(--tinta); word-break: break-word; }
   .chatLog p b { color: var(--verde); }
+  .agCaja { width: min(620px, 100%); }
+  .agCaja .formPreg { padding-bottom: 10px; }
+  .agHablar { flex: none; width: auto !important; padding: 0 16px !important; }
+  .agHablar.on { background: #d93025 !important; color: #fff !important; }
+  .agErr { padding: 0 20px; color: #ff8a80 !important; }
+  .agFicha { margin: 0 20px 8px; padding: 12px 14px; border-radius: 14px; background: rgba(242,92,28,.12); border: 1px solid rgba(242,92,28,.5); font-size: .86rem; }
+  .agFicha p { margin: 6px 0; } .agFicha ul { margin: 6px 0; padding-left: 18px; } .agFicha .accion { margin-top: 8px; width: 100%; border: 0; cursor: pointer; }
+  .agListaCaja { padding: 0 20px 16px; max-height: 26vh; overflow-y: auto; }
+  .agLista { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 6px; }
+  .agLista li { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; align-items: center; padding: 8px 10px; border-radius: 10px; background: rgba(255,255,255,.05); font-size: .82rem; }
+  .agLista li span { grid-column: 1 / -1; color: var(--suave); font-size: .72rem; }
+  .agLista select { background: rgba(255,255,255,.08); color: var(--tinta); border: 1px solid var(--borde); border-radius: 8px; padding: 4px; font: inherit; font-size: .76rem; }
+  .agLista select option { color: #111; }
   .entCaja { position: relative; width: min(560px, 100%); }
   .entCaja .cerrar { position: absolute; right: 12px; top: 12px; width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--borde); background: transparent; color: var(--tinta); cursor: pointer; }
   .entPedir { display: flex; gap: 8px; margin: 6px 0 0; } .entPedir input { flex: 1; min-width: 0; } .entPedir .accion { margin: 0; width: auto; padding: 0 16px; }
@@ -303,6 +316,18 @@
   <button type="button" id="manualCerrar" class="cerrar" aria-label="Cerrar">✕</button>
   <img id="manualImg" alt="Página del manual de marca de Pilot">
   <div class="manualNav"><button type="button" id="manualPrev" class="accion sec">‹ Anterior</button><span id="manualCont"></span><button type="button" id="manualSig" class="accion sec">Siguiente ›</button></div>
+</div>
+
+<div id="agente" class="visor" hidden>
+  <section class="planesCaja chatCaja agCaja" role="dialog" aria-label="Agente de ideas de Dommy">
+    <header><div><p class="cargo">Dommy · Agente de ideas</p><h2>Cuéntame tu idea</h2></div><button type="button" id="agCerrar" class="cerrar" aria-label="Cerrar">✕</button></header>
+    <form id="agClaveForm" class="formPreg" autocomplete="off" hidden><input id="agClave" type="password" placeholder="Clave del equipo" aria-label="Clave del equipo"><button type="submit" class="accion">Entrar</button></form>
+    <p id="agClaveErr" class="nota agErr" hidden>Esa clave no es del equipo.</p>
+    <div id="agChat" class="chat"></div>
+    <div id="agFicha" class="agFicha" hidden></div>
+    <form id="agForm" class="formPreg" autocomplete="off"><button type="button" id="agHablar" class="accion agHablar">🎙 Hablar</button><input id="agTxt" type="text" placeholder="…o escríbela aquí" aria-label="Tu idea"><button type="submit" class="accion">Enviar</button></form>
+    <div id="agListaCaja" class="agListaCaja" hidden><p class="cargo">Tablero</p><ul id="agLista" class="agLista"></ul></div>
+  </section>
 </div>
 
 <div id="entregas" class="visor tema-proclama" hidden>
