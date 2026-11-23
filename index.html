@@ -128,6 +128,13 @@
   .chat2 .chatFila input { display: none; } .chat2.abierto .chatFila input { display: block; }
   .chat2.abierto .chatLog { max-height: 34vh; overflow-y: auto; pointer-events: auto; }
   .chat2.abierto .chatLog p { background: rgba(8, 12, 13, .9); }
+  .chatLog p small { opacity: .55; font-size: .7em; }
+  .chatLog p.sis { background: transparent; color: var(--suave); font-style: italic; font-size: .74rem; padding: 2px 10px; }
+  .chat2.abierto .chatLog p.sis { background: rgba(8, 12, 13, .6); }
+  .chatLog p.men { border: 1px solid var(--verde); }
+  .chatLog a { color: var(--verde); } .chat2.abierto .chatLog a { pointer-events: auto; }
+  #bChat { position: relative; } #bChat[data-n]:not([data-n=""])::after { content: attr(data-n); position: absolute; right: -4px; top: -4px; min-width: 18px; height: 18px; padding: 0 4px; border-radius: 9px; background: #ff4b4b; color: #fff; font-size: .68rem; font-weight: 800; line-height: 18px; text-align: center; }
+  #enLinea { pointer-events: auto; cursor: pointer; }
   .chatFila { display: flex; justify-content: flex-end; gap: 6px; align-items: center; }
   .micBtn { flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--borde); background: rgba(8, 12, 13, .85); color: var(--tinta); font-size: 1.05rem; cursor: pointer; }
   .micBtn.on { background: var(--verde); border-color: transparent; }
@@ -470,4 +477,4 @@
 </div>
 
 <script>window.__OFICINA_BASE__ = ''; window.__OFICINA_FBX_JSON__ = true;</script>
-<script type="module" src="oficina.js?v=7dba33a5"></script>
+<script type="module" src="oficina.js?v=9b8b4d08"></script>
