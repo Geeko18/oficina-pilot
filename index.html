@@ -96,6 +96,16 @@
   .chatLog { display: flex; flex-direction: column; gap: 4px; margin-bottom: 6px; pointer-events: none; }
   .chatLog p { margin: 0; padding: 6px 10px; border-radius: 12px; background: rgba(8, 12, 13, .78); font-size: .8rem; line-height: 1.35; color: var(--tinta); word-break: break-word; }
   .chatLog p b { color: var(--verde); }
+  .entCaja { position: relative; width: min(560px, 100%); }
+  .entCaja .cerrar { position: absolute; right: 12px; top: 12px; width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--borde); background: transparent; color: var(--tinta); cursor: pointer; }
+  .entPedir { display: flex; gap: 8px; margin: 6px 0 0; } .entPedir input { flex: 1; min-width: 0; } .entPedir .accion { margin: 0; width: auto; padding: 0 16px; }
+  .entLista { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 10px; }
+  .entItem { padding: 12px 14px; border-radius: 14px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); }
+  .entCab { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; } .entCab b { font-size: .92rem; line-height: 1.35; }
+  .chip { flex: none; padding: 4px 10px; border-radius: 999px; font-size: .72rem; font-weight: 700; background: rgba(255,255,255,.12); color: var(--tinta); }
+  .chip.ed { background: #f2b01c; color: #1a1204; } .chip.ok { background: #1be37a; color: #04120b; }
+  .entFecha { margin: 4px 0 0 !important; font-size: .76rem !important; }
+  .entBotones { display: flex; gap: 8px; flex-wrap: wrap; } .entBotones .accion { margin-top: 8px; padding: 8px 14px; font-size: .8rem; width: auto; }
   .manualBox { grid-template-rows: 1fr auto; gap: 10px; }
   .manualBox img { max-height: 78vh; width: min(1100px, 100%); object-fit: contain; background: #000; }
   .manualNav { display: flex; justify-content: center; align-items: center; gap: 16px; color: var(--tinta); font-weight: 700; }
@@ -291,6 +301,17 @@
   <button type="button" id="manualCerrar" class="cerrar" aria-label="Cerrar">✕</button>
   <img id="manualImg" alt="Página del manual de marca de Pilot">
   <div class="manualNav"><button type="button" id="manualPrev" class="accion sec">‹ Anterior</button><span id="manualCont"></span><button type="button" id="manualSig" class="accion sec">Siguiente ›</button></div>
+</div>
+
+<div id="entregas" class="visor tema-proclama" hidden>
+  <section class="caja pedidoCaja entCaja" role="dialog" aria-label="Entrega de videos">
+    <button type="button" id="entCerrar" class="cerrar" aria-label="Cerrar">✕</button>
+    <p class="cargo">Proclama del Pacífico · Entrega de videos</p>
+    <h2 id="entTitulo">Entrega de videos</h2>
+    <form id="entPedir" autocomplete="off" class="entPedir"><input id="entNombre" type="text" placeholder="Tu nombre" aria-label="Tu nombre"><button type="submit" class="accion">Ver mis entregas</button></form>
+    <p id="entNota" class="nota"></p>
+    <ul id="entLista" class="entLista"></ul>
+  </section>
 </div>
 
 <div id="pedidoPro" class="visor tema-proclama" hidden>
