@@ -96,6 +96,10 @@
   .chatLog { display: flex; flex-direction: column; gap: 4px; margin-bottom: 6px; pointer-events: none; }
   .chatLog p { margin: 0; padding: 6px 10px; border-radius: 12px; background: rgba(8, 12, 13, .78); font-size: .8rem; line-height: 1.35; color: var(--tinta); word-break: break-word; }
   .chatLog p b { color: var(--verde); }
+  .manualBox { grid-template-rows: 1fr auto; gap: 10px; }
+  .manualBox img { max-height: 78vh; width: min(1100px, 100%); object-fit: contain; background: #000; }
+  .manualNav { display: flex; justify-content: center; align-items: center; gap: 16px; color: var(--tinta); font-weight: 700; }
+  .manualNav .accion { margin: 0; padding: 9px 18px; }
   .chatFila { display: flex; gap: 6px; align-items: center; }
   .micBtn { flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--borde); background: rgba(8, 12, 13, .85); color: var(--tinta); font-size: 1.05rem; cursor: pointer; }
   .micBtn.on { background: var(--verde); border-color: transparent; }
@@ -281,6 +285,12 @@
       <p class="nota">Se abre WhatsApp con tu solicitud ya escrita; solo tienes que enviarla.</p>
     </form>
   </div>
+</div>
+
+<div id="manual" class="visor manualBox" hidden role="dialog" aria-label="Manual de marca">
+  <button type="button" id="manualCerrar" class="cerrar" aria-label="Cerrar">✕</button>
+  <img id="manualImg" alt="Página del manual de marca de Pilot">
+  <div class="manualNav"><button type="button" id="manualPrev" class="accion sec">‹ Anterior</button><span id="manualCont"></span><button type="button" id="manualSig" class="accion sec">Siguiente ›</button></div>
 </div>
 
 <div id="pedidoPro" class="visor tema-proclama" hidden>
