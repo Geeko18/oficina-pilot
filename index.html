@@ -89,6 +89,14 @@
   .pedidoCaja .dos { display: grid; grid-template-columns: 1fr 1fr; gap: 0 10px; }
   .pedidoCaja .nota { margin: 10px 0 0; font-size: .74rem; }
   .pedidoCaja .enlaces { display: flex; justify-content: center; gap: 22px; margin-top: 14px; } .pedidoCaja .enlaces button { border: 0; background: transparent; color: var(--suave); font: inherit; font-size: .82rem; text-decoration: underline; cursor: pointer; }
+  .enLinea { position: fixed; z-index: 5; left: max(16px, env(safe-area-inset-left, 0px)); top: calc(78px + env(safe-area-inset-top, 0px)); padding: 6px 12px; border-radius: 999px; background: rgba(8, 12, 13, .78); border: 1px solid var(--borde); font-size: .74rem; font-weight: 700; color: var(--tinta); pointer-events: none; }
+  .enLinea::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 7px; border-radius: 50%; background: var(--verde); }
+  .chat2 { display: none; position: fixed; z-index: 5; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(14px + env(safe-area-inset-bottom, 0px)); width: min(320px, calc(100% - 210px)); }
+  body.jugando .chat2 { display: block; }
+  .chatLog { display: flex; flex-direction: column; gap: 4px; margin-bottom: 6px; pointer-events: none; }
+  .chatLog p { margin: 0; padding: 6px 10px; border-radius: 12px; background: rgba(8, 12, 13, .78); font-size: .8rem; line-height: 1.35; color: var(--tinta); word-break: break-word; }
+  .chatLog p b { color: var(--verde); }
+  .chat2 input { width: 100%; padding: 10px 14px; border-radius: 999px; border: 1px solid var(--borde); background: rgba(8, 12, 13, .85); color: var(--tinta); font: inherit; font-size: .85rem; }
   .soloEquipo { display: none !important; } body.equipo .soloEquipo { display: block !important; }
   /* cada piso con su color: Pilot verde, Dommy naranja, Proclama rojo */
   .tema-dommy { --verde: #f25c1c; --verde-tinta: #1a0b04; }
@@ -319,6 +327,8 @@
   <button type="button" id="buscasNo" class="plano">Solo quiero recorrer</button>
 </div>
 <p id="aviso2" class="toast" hidden role="status"></p>
+<div id="enLinea" class="enLinea" hidden role="status"></div>
+<form id="chat" class="chat2" autocomplete="off"><div id="chatLog" class="chatLog" aria-live="polite"></div><input id="chatTxt" type="text" maxlength="120" placeholder="Escribe un mensaje…" aria-label="Mensaje para los demás"></form>
 
 <div id="propuesta" class="visor" hidden>
   <form id="propForm" class="caja pedidoCaja" autocomplete="off">
