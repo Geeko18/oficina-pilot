@@ -1,0 +1,387 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><style>body{margin:0;font:14px system-ui}[hidden]{display:none!important}img{max-width:100%}</style></head><body><title>Oficina Pilot</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600;700&display=swap">
+<style>
+  /* Una sola pantalla: la sala 3D ocupa todo el fondo y los controles flotan encima. Aspecto único oscuro, el de la marca. */
+  :root {
+    --fondo: #0c1013; --panel: #0a0f11; --tinta: #f3f6f4; --suave: #a9b4ae; --verde: #1be37a; --verde-tinta: #04120b; --borde: rgba(255, 255, 255, .22);
+    --f-titulo: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --f-texto: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    background: var(--fondo); color: var(--tinta); font-family: var(--f-texto); overflow: hidden;
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  #escena { position: fixed; inset: 0; isolation: isolate; touch-action: none; }
+
+  .barra {
+    position: fixed; inset: 0 0 auto 0; z-index: 5; display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 10px 16px;
+    padding-top: calc(12px + env(safe-area-inset-top, 0px));
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+    pointer-events: none;
+  }
+  .marca { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .marca img { width: 44px; height: 44px; border-radius: 10px; border: 1px solid var(--borde); }
+  .marca h1 { margin: 0; font-family: var(--f-titulo); font-weight: 700; font-size: 1.05rem; letter-spacing: .18em; text-wrap: balance; }
+  .marca p { margin: 2px 0 0; font-size: .75rem; color: var(--suave); }
+  /* Botones: solo se ve «Menú»; al tocarlo se despliega la cuadrícula */
+  .botones { position: relative; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; pointer-events: auto; }
+  .rejillaBotones { display: none; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; width: min(420px, calc(100vw - 32px)); padding: 10px; border-radius: 18px; background: rgba(8, 12, 13, .9); border: 1px solid var(--borde); box-shadow: 0 16px 40px rgba(0, 0, 0, .5); }
+  .botones.abierto .rejillaBotones { display: grid; }
+  .rejillaBotones button { border-radius: 12px; padding: 12px 8px; min-height: 48px; line-height: 1.2; }
+  .rejillaBotones .principal { grid-column: 1 / -1; }
+  button, .accion { font: inherit; }
+  .botones button {
+    padding: 9px 14px; border-radius: 999px; border: 1px solid var(--borde); background: rgba(8, 12, 13, .78); color: var(--tinta);
+    font-size: .78rem; font-weight: 700; cursor: pointer;
+  }
+  .botones button:hover { border-color: var(--verde); }
+  .botones button.principal { background: var(--verde); color: var(--verde-tinta); border-color: transparent; }
+  /* Mientras se recorre la oficina se quita la pista de abajo: ahí va la palanca */
+  body.jugando .pista { display: none; }
+  #avatar { display: none; }
+  body.jugando #avatar { display: block; }
+  body.equipo #avatar { display: none; }
+  .planesCaja { position: relative; width: min(980px, 100%); max-height: 92vh; display: flex; flex-direction: column; border-radius: 20px; background: var(--panel); border: 1px solid rgba(27, 227, 122, .45); box-shadow: 0 24px 70px rgba(0, 0, 0, .65); overflow: hidden; }
+  .planesCaja header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 18px 20px 6px; }
+  .planesCaja h2 { margin: 2px 0 0; font-family: var(--f-titulo); font-size: 1.45rem; }
+  .planesCaja .cargo { margin: 0; color: var(--verde); font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .planesCaja .cerrar { position: static; flex: none; }
+  .tabs { display: flex; gap: 8px; padding: 8px 20px 12px; overflow-x: auto; scrollbar-width: thin; }
+  .tabs button { flex: none; padding: 9px 14px; border-radius: 999px; border: 1px solid var(--borde); background: transparent; color: var(--tinta); font-size: .82rem; font-weight: 700; cursor: pointer; white-space: nowrap; }
+  .tabs button.on { background: var(--verde); color: var(--verde-tinta); border-color: transparent; }
+  .cuerpo { padding: 4px 20px 20px; overflow-y: auto; }
+  .rejilla { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; }
+  .plan { padding: 16px; border-radius: 16px; background: rgba(255, 255, 255, .05); border: 1px solid rgba(255, 255, 255, .14); }
+  .plan h3 { margin: 0; font-family: var(--f-titulo); font-size: 1.05rem; }
+  .plan .nota { margin: 2px 0 10px; font-size: .78rem; color: var(--suave); }
+  .plan .precio { margin: 0 0 10px; font-family: var(--f-titulo); font-weight: 700; font-size: 1.28rem; color: var(--verde); text-wrap: balance; }
+  .plan .precio span { font-size: .78rem; font-weight: 600; color: var(--suave); }
+  .plan ul { margin: 0; padding-left: 18px; font-size: .84rem; line-height: 1.55; color: var(--tinta); }
+  .pie { margin: 14px 2px 0; font-size: .76rem; color: var(--suave); line-height: 1.5; }
+  .chatCaja { width: min(560px, 100%); }
+  .chat { padding: 4px 20px 6px; max-height: 34vh; min-height: 90px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+  .bur { max-width: 92%; padding: 10px 13px; border-radius: 14px; font-size: .9rem; line-height: 1.5; }
+  .bur.ella { align-self: flex-start; background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .14); }
+  .bur.yo { align-self: flex-end; background: var(--verde); color: var(--verde-tinta); font-weight: 600; }
+  .bur .ver { display: block; margin-top: 8px; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--verde); background: transparent; color: var(--verde); font-weight: 700; font-size: .8rem; cursor: pointer; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 6px 20px 8px; max-height: 26vh; overflow-y: auto; }
+  .chips button { padding: 8px 12px; border-radius: 999px; border: 1px solid var(--borde); background: transparent; color: var(--tinta); font-size: .8rem; font-weight: 600; cursor: pointer; text-align: left; }
+  .chips button:hover { border-color: var(--verde); }
+  .chips button.todos { border-color: var(--verde); color: var(--verde); }
+  .formPreg { display: flex; gap: 8px; padding: 6px 20px 18px; }
+  .formPreg input { flex: 1; min-width: 0; padding: 11px 14px; border-radius: 999px; border: 1px solid var(--borde); background: rgba(255, 255, 255, .06); color: var(--tinta); font: inherit; }
+  .formPreg .accion { margin-top: 0; width: auto; padding: 0 18px; border: 0; cursor: pointer; }
+  .caja { width: min(380px, 100%); padding: 22px; border-radius: 18px; background: var(--panel); border: 1px solid rgba(27, 227, 122, .45); box-shadow: 0 20px 60px rgba(0, 0, 0, .6); }
+  .caja h2 { margin: 0 0 6px; font-family: var(--f-titulo); font-size: 1.25rem; }
+  .caja p { margin: 0 0 12px; font-size: .88rem; color: var(--suave); line-height: 1.45; }
+  .caja input { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--borde); background: rgba(255,255,255,.06); color: var(--tinta); font: inherit; letter-spacing: .06em; }
+  .caja .error { color: #ff8a80; margin: 8px 0 0; }
+  .caja .accion { width: 100%; border: 0; cursor: pointer; }
+  .pedidoCaja { width: min(480px, 100%); max-height: 92vh; overflow-y: auto; }
+  .pedidoCaja .cargo { margin: 0 0 2px; color: var(--verde); font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .pedidoCaja label { display: block; margin: 10px 0 0; font-size: .78rem; font-weight: 600; color: var(--suave); }
+  .pedidoCaja label input, .pedidoCaja select, .pedidoCaja textarea { display: block; width: 100%; margin-top: 5px; padding: 11px 12px; border-radius: 12px; border: 1px solid var(--borde); background: rgba(255,255,255,.06); color: var(--tinta); font: inherit; letter-spacing: 0; resize: vertical; }
+  .pedidoCaja select option { color: #111; }
+  .pedidoCaja .dos { display: grid; grid-template-columns: 1fr 1fr; gap: 0 10px; }
+  .pedidoCaja .nota { margin: 10px 0 0; font-size: .74rem; }
+  .pedidoCaja .enlaces { display: flex; justify-content: center; gap: 22px; margin-top: 14px; } .pedidoCaja .enlaces button { border: 0; background: transparent; color: var(--suave); font: inherit; font-size: .82rem; text-decoration: underline; cursor: pointer; }
+  .soloEquipo { display: none !important; } body.equipo .soloEquipo { display: block !important; }
+  /* cada piso con su color: Pilot verde, Dommy naranja, Proclama rojo */
+  .tema-dommy { --verde: #f25c1c; --verde-tinta: #1a0b04; }
+  .tema-dommy .planesCaja, .tema-dommy .caja { border-color: rgba(242, 92, 28, .6); }
+  .tema-dommy .plan .precio { color: #ff8a4c; }
+  .ficha.tema-dommy { border-color: rgba(242, 92, 28, .6); }
+  .tema-proclama { --verde: #da1616; --verde-tinta: #ffffff; }
+  .tema-proclama .caja, .ficha.tema-proclama { border-color: rgba(218, 22, 22, .7); }
+  .tema-proclama .cargo { color: #ff5a5a; }
+  @media (max-width: 420px) { .pedidoCaja .dos { grid-template-columns: 1fr; } }
+  .elegirCaja { width: min(440px, 100%); text-align: center; }
+  .elegirCaja .cargo { margin: 0 0 4px; color: var(--verde); font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .dosPers { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 6px; }
+  .dosPers button { display: grid; justify-items: center; gap: 10px; padding: 20px 10px 16px; border-radius: 16px; border: 1px solid var(--borde); background: rgba(255, 255, 255, .05); color: var(--tinta); font-weight: 700; font-size: .95rem; cursor: pointer; }
+  .dosPers button:hover { border-color: var(--verde); background: rgba(27, 227, 122, .1); }
+  .dosPers svg { width: 64px; height: 64px; fill: var(--verde); }
+  .ascensor { position: fixed; z-index: 7; left: 50%; bottom: calc(22px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); width: min(340px, calc(100% - 32px)); padding: 16px; border-radius: 18px; background: var(--panel); border: 1px solid rgba(27, 227, 122, .45); box-shadow: 0 20px 60px rgba(0, 0, 0, .6); display: grid; gap: 8px; }
+  .ascensor .cargo { margin: 0; color: var(--verde); font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .ascensor h2 { margin: 0 0 4px; font-family: var(--f-titulo); font-size: 1.1rem; }
+  .ascensor button { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--borde); background: rgba(255, 255, 255, .05); color: var(--tinta); font-size: .86rem; font-weight: 600; text-align: left; cursor: pointer; }
+  .ascensor button b { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--verde); color: var(--verde-tinta); font-size: 1rem; }
+  .ascensor button:hover:not(:disabled) { border-color: var(--verde); }
+  .ascensor button:disabled { opacity: .45; cursor: default; }
+  .ascensor button:disabled b { background: rgba(255, 255, 255, .25); color: var(--tinta); }
+  .buscas { width: min(380px, calc(100% - 32px)); max-height: 80vh; overflow-y: auto; }
+  .buscas button.plano { justify-content: center; background: transparent; color: var(--suave); }
+  .toast { position: fixed; z-index: 7; left: 50%; top: calc(74px + env(safe-area-inset-top, 0px)); transform: translateX(-50%); margin: 0; max-width: calc(100% - 32px); padding: 10px 18px; border-radius: 999px; background: var(--verde); color: var(--verde-tinta); font-weight: 700; font-size: .86rem; text-align: center; box-shadow: 0 10px 30px rgba(0, 0, 0, .45); pointer-events: none; }
+  .registro { margin: 4px 0 12px; text-align: left; display: grid; gap: 8px; }
+  .registro label { display: block; font-size: .78rem; font-weight: 600; color: var(--suave); }
+  .registro label span { font-weight: 400; }
+  .registro input { margin-top: 4px; letter-spacing: 0; }
+  .registro .nota { margin: 0; font-size: .72rem; line-height: 1.4; }
+  .registro .enlace { justify-self: center; padding: 2px 6px; border: 0; background: transparent; color: var(--verde); font-size: .8rem; font-weight: 600; text-decoration: underline; cursor: pointer; }
+  .elegirCaja .elige { margin: 0 0 8px; font-size: .86rem; color: var(--suave); }
+  .elegirCaja h2 { margin-bottom: 10px; }
+  button:focus-visible, .accion:focus-visible { outline: 2px solid var(--verde); outline-offset: 2px; }
+
+  .pista {
+    position: fixed; z-index: 4; left: max(16px, env(safe-area-inset-left, 0px)); right: max(16px, env(safe-area-inset-right, 0px));
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px)); margin: 0; font-size: .7rem; color: var(--suave); pointer-events: none;
+  }
+  .ficha {
+    position: fixed; z-index: 6; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    width: min(350px, calc(100% - 32px)); max-height: 62%; overflow-y: auto; padding: 18px 18px 16px; border-radius: 18px;
+    background: var(--panel); border: 1px solid rgba(27, 227, 122, .45); box-shadow: 0 20px 60px rgba(0, 0, 0, .6);
+  }
+  .ficha .cargo { margin: 0; color: var(--verde); font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .ficha h2 { margin: 4px 32px 6px 0; font-family: var(--f-titulo); font-size: 1.3rem; line-height: 1.15; }
+  .ficha p.texto { margin: 0; font-size: .88rem; line-height: 1.45; color: var(--suave); }
+  .ficha ul { margin: 10px 0 0; padding-left: 18px; font-size: .88rem; line-height: 1.6; }
+  .ficha .cerrar { position: absolute; right: 10px; top: 10px; width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--borde); background: transparent; color: var(--tinta); cursor: pointer; }
+  .accion { display: block; margin-top: 14px; padding: 11px; border-radius: 999px; text-align: center; text-decoration: none; font-weight: 700; font-size: .88rem; background: var(--verde); color: var(--verde-tinta); }
+  .accion.sec { background: transparent; color: var(--tinta); border: 1px solid var(--borde); margin-top: 8px; }
+  .visor { position: fixed; inset: 0; z-index: 8; display: grid; place-items: center; padding: 16px; background: rgba(4, 6, 7, .9); }
+  .visor video, .visor img { max-width: 100%; max-height: 86vh; border-radius: 14px; background: #000; }
+  .visor img { width: min(1100px, 100%); height: auto; max-height: 76vh; object-fit: contain; background: #fff; }
+  .visor:has(#visorImg:not([hidden])) { align-content: center; gap: 12px; }
+  .visorEnlace { margin: 0; padding: 12px 26px; justify-self: center; }
+  .visor .cerrar { position: absolute; right: max(16px, env(safe-area-inset-right, 0px)); top: calc(14px + env(safe-area-inset-top, 0px)); width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--borde); background: rgba(8, 12, 13, .8); color: var(--tinta); cursor: pointer; font-size: 1rem; }
+  /* Cabecera legible sobre la sala blanca */
+  .barra::before { content: ""; position: fixed; inset: 0 0 auto 0; height: 150px; background: linear-gradient(rgba(6, 9, 10, .72), rgba(6, 9, 10, 0)); z-index: -1; pointer-events: none; }
+  .estado { position: fixed; inset: 0; z-index: 3; display: grid; place-items: center; padding: 24px; text-align: center; font-size: .95rem; color: var(--suave); pointer-events: none; }
+  /* en el celular los tableros emergentes van arriba, para no tapar la palanca de abajo a la izquierda */
+  @media (max-width: 700px), (pointer: coarse) { .ascensor { bottom: auto; top: calc(72px + env(safe-area-inset-top, 0px)); max-height: calc(100vh - 100px); overflow-y: auto; } }
+  @media (max-width: 560px) {
+    .ficha { left: max(16px, env(safe-area-inset-left, 0px)); width: auto; max-height: 55%; }
+  }
+</style>
+
+<div id="escena"></div>
+<p id="cargando" class="estado">Abriendo la oficina…</p>
+<p id="aviso" class="estado" hidden></p>
+
+<header class="barra">
+  <div class="marca">
+    <img src="pilot-icon.png" alt="Logo de Pilot" width="44" height="44">
+    <div>
+      <h1>OFICINA PILOT</h1>
+      <p>Agencia digital · equipo, marcas y exhibición</p>
+    </div>
+  </div>
+  <div class="botones">
+    <button type="button" id="menu" aria-expanded="false" aria-controls="rejillaBotones">☰  Menú</button>
+    <div class="rejillaBotones" id="rejillaBotones">
+      <button type="button" id="juego" class="principal" title="Entra a la oficina y recórrela como un visitante">Recorrer la oficina</button>
+      <button type="button" id="sonido" title="Música, ambiente y pasos">Sonido: sí</button>
+      <button type="button" id="equipo">Soy del equipo</button>
+      <button type="button" id="avatar" title="Elige cómo te ves al recorrer la oficina">Personaje: él</button>
+      <button type="button" id="calidad" title="Si se mueve lento, baja la calidad">Calidad: alta</button>
+      <button type="button" data-vista="equipo">Equipo</button>
+      <button type="button" data-vista="f1">Fórmula 1</button>
+      <button type="button" data-vista="piso2">Piso 2</button>
+      <button type="button" data-vista="piso3">Piso 3 · Dommy</button>
+      <button type="button" data-vista="general">Vista general</button>
+      <button type="button" id="bBuscas">¿Qué buscas?</button>
+      <button type="button" id="bCita">Agendar cita</button>
+      <button type="button" id="bDia">Ciudad: noche</button>
+    </div>
+  </div>
+</header>
+
+<p class="pista">Arrastra para girar · pellizca o usa la rueda para acercar · toca una persona, un cuadro, el televisor o el carro</p>
+
+<aside id="ficha" class="ficha" hidden>
+  <button type="button" id="fCerrar" class="cerrar" aria-label="Cerrar">✕</button>
+  <p id="fCargo" class="cargo"></p>
+  <h2 id="fNombre"></h2>
+  <p id="fTexto" class="texto"></p>
+  <ul id="fLista"></ul>
+  <a id="fAccion" class="accion" href="#" target="_blank" rel="noopener noreferrer" hidden></a>
+  <a id="fAccion2" class="accion sec" href="#" target="_blank" rel="noopener noreferrer" hidden></a>
+</aside>
+
+<div id="visor" class="visor" hidden>
+  <button type="button" id="visorCerrar" class="cerrar" aria-label="Cerrar el video">✕</button>
+  <video id="visorVideo" controls playsinline loop></video>
+  <img id="visorImg" alt="" hidden>
+  <a id="visorEnlace" class="accion visorEnlace" target="_blank" rel="noopener noreferrer" hidden>Visitar el sitio</a>
+</div>
+
+<div id="planesPanel" class="visor" hidden>
+  <section class="planesCaja" role="dialog" aria-label="Planes y valores">
+    <header><div><p class="cargo" id="planesCargo">Valeria Ospina · Asesora de Dommy</p><h2 id="planesTitulo">Planes y valores</h2></div><button type="button" id="planesCerrar" class="cerrar" aria-label="Cerrar">✕</button></header>
+    <nav id="planesTabs" class="tabs"></nav>
+    <div id="planesCuerpo" class="cuerpo"></div>
+  </section>
+</div>
+
+<div id="preguntas" class="visor" hidden>
+  <section class="planesCaja chatCaja" role="dialog" aria-label="Pregúntale a la asesora">
+    <header><div><p class="cargo" id="preguntasCargo">Valeria Ospina · Asesora de Dommy</p><h2>¿Qué quieres saber?</h2></div><button type="button" id="preguntasCerrar" class="cerrar" aria-label="Cerrar">✕</button></header>
+    <div id="chatPreg" class="chat"></div>
+    <div id="chipsPreg" class="chips"></div>
+    <form id="formPreg" class="formPreg" autocomplete="off"><input id="campoPreg" type="text" placeholder="Escribe tu pregunta…" aria-label="Tu pregunta"><button type="submit" class="accion">Preguntar</button></form>
+  </section>
+</div>
+
+<div id="pedido" class="visor" hidden>
+  <div class="caja pedidoCaja">
+    <div id="pedidoPaso1">
+      <p class="cargo">Julián Castro · Asesor de edición de video</p>
+      <h2>¿Qué necesitas?</h2>
+      <p>Mándanos tu material y las indicaciones, o pide una cotización.</p>
+      <button type="button" id="pedidoEdicion" class="accion">Enviar mi video para editar</button>
+      <button type="button" id="pedidoCotizar" class="accion sec">Quiero cotizar un video</button>
+      <div class="enlaces"><button type="button" id="pedidoCita">Agendar una cita</button><button type="button" id="pedidoCerrar">Cerrar</button></div>
+    </div>
+    <form id="edicionForm" hidden autocomplete="off">
+      <p class="cargo">Julián Castro · Pedido de edición</p>
+      <h2>Envía tu solicitud de edición</h2>
+      <label>Código de cliente (opcional)<input id="eCodigo" type="text" maxlength="24" autocomplete="off" autocapitalize="characters" spellcheck="false"></label>
+      <label>Enlace del material (Drive u otro)<input id="eEnlace" type="url" required maxlength="400" placeholder="https://drive.google.com/…"></label>
+      <label>Instrucciones de este video<textarea id="eInstr" rows="3" maxlength="1500" placeholder="Enfoque, apoyos, titular, qué incluir o evitar…"></textarea></label>
+      <button type="submit" class="accion">Enviar solicitud</button>
+      <button type="button" id="edicionAtras" class="accion sec">Volver</button>
+      <p class="nota" id="edicionNota">El pedido llega al editor con el enlace y tus indicaciones.</p>
+    </form>
+    <form id="pedidoForm" hidden autocomplete="off">
+      <p class="cargo" id="pedidoModo">Cotización</p>
+      <h2>Cuéntanos qué video necesitas</h2>
+      <label>Tu nombre o marca<input id="pNombre" type="text" required maxlength="80"></label>
+      <label>Tipo de video
+        <select id="pTipo">
+          <option>Reels / TikToks</option><option>Video para YouTube</option><option>Anuncio para redes</option><option>Entrevista</option><option>Video corporativo o de marca</option><option>Cubrimiento de evento</option><option>Animación / motion graphics</option><option>Otro</option>
+        </select></label>
+      <div class="dos">
+        <label>¿Cuántos videos?<input id="pCantidad" type="number" min="1" max="200" value="1"></label>
+        <label>Duración de cada uno
+          <select id="pDuracion"><option>Hasta 30 segundos</option><option>30 a 60 segundos</option><option>1 a 3 minutos</option><option>3 a 10 minutos</option><option>Más de 10 minutos</option></select></label>
+      </div>
+      <div class="dos">
+        <label>¿Ya tienes el material grabado?
+          <select id="pMaterial"><option>Sí, solo necesito la edición</option><option>No, necesito grabación y edición</option><option>Tengo una parte</option></select></label>
+        <label>¿Para cuándo lo necesitas?<input id="pFecha" type="date"></label>
+      </div>
+      <label>Describe lo que necesitas<textarea id="pDetalle" rows="3" maxlength="600" required placeholder="Tema, estilo, referencias, dónde se va a publicar…"></textarea></label>
+      <button type="submit" class="accion">Enviar por WhatsApp</button>
+      <button type="button" id="pedidoAtras" class="accion sec">Volver</button>
+      <p class="nota">Se abre WhatsApp con tu solicitud ya escrita; solo tienes que enviarla.</p>
+    </form>
+  </div>
+</div>
+
+<div id="pedidoPro" class="visor tema-proclama" hidden>
+  <form id="proForm" class="caja pedidoCaja" autocomplete="off">
+    <p class="cargo">Proclama del Pacífico · Edición de video</p>
+    <h2 id="proTitulo">Solicita tu video</h2>
+    <label>¿Quién envía?
+      <select id="proQuien"><option>David Luna</option><option>Carlos Alberto Villamil Sánchez</option><option>Daniela Aguilar</option><option>Otro periodista o asesor de Proclama</option></select></label>
+    <label>Tipo de nota
+      <select id="proTipo"><option>Política</option><option>Sociales y farándula</option><option>Deportes</option><option>Cultura</option><option>Económicas y empresariales</option><option>Científicas y tecnológicas</option><option>Denuncia ciudadana</option><option>Última hora</option><option>Otra</option></select></label>
+    <label>Enlace de la carpeta o del video (Drive u otro)<input id="proEnlace" type="url" required maxlength="400" placeholder="https://drive.google.com/…"></label>
+    <label>Indicaciones para este video<textarea id="proInstr" rows="3" maxlength="1500" placeholder="Titular, enfoque, apoyos, testimonios, qué incluir o evitar…"></textarea></label>
+    <button type="submit" class="accion">Enviar solicitud</button>
+    <button type="button" id="proCerrar" class="accion sec">Cancelar</button>
+    <p class="nota" id="proNota">Tu solicitud llega directo a edición de video.</p>
+  </form>
+</div>
+
+<div id="proAcceso" class="visor tema-proclama" hidden>
+  <form id="proAccesoForm" class="caja" autocomplete="off">
+    <h2>Piso 4 · Proclama del Pacífico</h2>
+    <p>Este piso es solo para el equipo de Proclama. ¿Cómo te llamas?</p>
+    <input id="proAccesoClave" type="password" placeholder="Tu nombre" autocomplete="off" spellcheck="false" aria-label="Tu nombre">
+    <p id="proAccesoError" class="error" hidden>No te encuentro en el equipo de Proclama. Escribe tu nombre como te conocen en la redacción.</p>
+    <button type="submit" class="accion">Entrar</button>
+    <button type="button" id="proAccesoCerrar" class="accion sec">Cancelar</button>
+  </form>
+</div>
+
+<div id="ascensor" class="ascensor" hidden role="dialog" aria-label="Ascensor">
+  <p class="cargo">Ascensor</p>
+  <h2>¿A qué piso vas?</h2>
+  <button type="button" data-piso="3"><b>4</b><span>Proclama del Pacífico · redacción y edición</span></button>
+  <button type="button" data-piso="2"><b>3</b><span>Dommy · plataforma para restaurantes</span></button>
+  <button type="button" data-piso="1"><b>2</b><span>Portales web, propuestas, edición de video y métricas</span></button>
+  <button type="button" data-piso="0"><b>1</b><span>Oficina Pilot · equipo, ventas y exhibición</span></button>
+</div>
+
+<div id="buscas" class="ascensor buscas" hidden role="dialog" aria-label="¿Qué buscas?">
+  <p class="cargo">Sofía Márquez · Recepción</p>
+  <h2 id="buscasTitulo">¿Qué buscas hoy?</h2>
+  <button type="button" data-lugar="marketing" data-tema="Redes sociales y publicidad"><b>1</b><span>Redes sociales y publicidad</span></button>
+  <button type="button" data-lugar="edicion" data-tema="Video para mi marca"><b>2</b><span>Video para mi marca</span></button>
+  <button type="button" data-lugar="webs" data-tema="Página web o app"><b>3</b><span>Página web o app</span></button>
+  <button type="button" data-lugar="dommy" data-tema="Dommy para mi restaurante"><b>4</b><span>Dommy para mi restaurante</span></button>
+  <button type="button" data-lugar="propuestas" data-tema="Ver mi propuesta" class="plano">Ya tengo una propuesta</button>
+  <button type="button" id="buscasNo" class="plano">Solo quiero recorrer</button>
+</div>
+<p id="aviso2" class="toast" hidden role="status"></p>
+
+<div id="propuesta" class="visor" hidden>
+  <form id="propForm" class="caja pedidoCaja" autocomplete="off">
+    <p class="cargo">Diagnósticos y propuestas</p>
+    <h2>Abre tu propuesta</h2>
+    <p>Escribe el código que te dio el equipo de Pilot. Cada propuesta solo se abre con su código.</p>
+    <input id="propCodigo" type="text" placeholder="Código de tu propuesta" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Código de tu propuesta">
+    <p id="propError" class="error" hidden>Ese código no corresponde a ninguna propuesta. Revísalo o pídeselo al equipo.</p>
+    <div id="propLista" hidden>
+      <p class="cargo" style="margin-top:12px">Lista para ti</p>
+      <h3 id="propTitulo" style="margin:2px 0 0;font-size:1.05rem"></h3>
+      <a id="propAbrir" class="accion" target="_blank" rel="noopener noreferrer">Abrir mi propuesta</a>
+    </div>
+    <button type="submit" id="propVer" class="accion">Ver mi propuesta</button>
+    <button type="button" id="propCita" class="accion sec">Aún no tengo propuesta: agendar un diagnóstico</button>
+    <button type="button" id="propCerrar" class="accion sec">Cerrar</button>
+  </form>
+</div>
+
+<div id="cita" class="visor" hidden>
+  <form id="citaForm" class="caja pedidoCaja" autocomplete="off">
+    <p class="cargo">Agendar cita</p>
+    <h2>Elige día y hora</h2>
+    <label>Tu nombre o marca<input id="cNombre" type="text" required maxlength="80"></label>
+    <label>¿De qué quieres hablar?<input id="cTema" type="text" required maxlength="120" placeholder="Página web, videos, Dommy…"></label>
+    <div class="dos">
+      <label>Día<input id="cFecha" type="date" required></label>
+      <label>Hora<select id="cHora"></select></label>
+    </div>
+    <label>¿Cómo prefieres la cita?
+      <select id="cModo"><option>Videollamada</option><option>Llamada telefónica</option><option>En persona</option></select></label>
+    <button type="submit" class="accion">Enviar por WhatsApp</button>
+    <button type="button" id="citaCerrar" class="accion sec">Cancelar</button>
+    <p class="nota">Se abre WhatsApp con tu solicitud ya escrita; solo tienes que enviarla. El equipo te confirma la hora.</p>
+  </form>
+</div>
+
+<div id="elegir" class="visor" hidden>
+  <div class="caja elegirCaja" role="dialog" aria-label="Elige tu personaje">
+    <p class="cargo">Bienvenido a la Oficina Pilot</p>
+    <h2>¿Cómo te llamas?</h2>
+    <div class="registro">
+      <input id="regNombre" type="text" maxlength="80" autocomplete="name" placeholder="Tu nombre" aria-label="Tu nombre">
+      <input id="regWa" type="hidden" value="">
+    </div>
+    <p class="elige">Elige tu personaje para entrar</p>
+    <div class="dosPers">
+      <button type="button" id="elegirM"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="16" r="10"/><path d="M14 60V40c0-9 7-14 18-14s18 5 18 14v20z"/></svg><span>Soy hombre</span></button>
+      <button type="button" id="elegirF"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="16" r="10"/><path d="M32 26c-9 0-14 5-16 13l-6 21h44l-6-21c-2-8-7-13-16-13z"/></svg><span>Soy mujer</span></button>
+    </div>
+  </div>
+</div>
+
+<div id="acceso" class="visor" hidden>
+  <form id="accesoForm" class="caja" autocomplete="off">
+    <h2>Acceso del equipo</h2>
+    <p>Escribe tu clave para recorrer la oficina con tu personaje.</p>
+    <input id="accesoClave" type="password" placeholder="Tu clave" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Clave de acceso">
+    <p id="accesoError" class="error" hidden>Esa clave no es válida.</p>
+    <button type="submit" class="accion">Entrar</button>
+    <button type="button" id="accesoCerrar" class="accion sec">Cancelar</button>
+  </form>
+</div>
+
+<script>window.__OFICINA_BASE__ = ''; window.__OFICINA_FBX_JSON__ = true;</script>
+<script type="module" src="oficina.js"></script>
