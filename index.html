@@ -109,6 +109,10 @@
   .agLista li span { grid-column: 1 / -1; color: var(--suave); font-size: .72rem; }
   .agLista select { background: rgba(255,255,255,.08); color: var(--tinta); border: 1px solid var(--borde); border-radius: 8px; padding: 4px; font: inherit; font-size: .76rem; }
   .agLista select option { color: #111; }
+  .asProCaja { position: relative; width: min(460px, 100%); }
+  .asProCaja .cerrar { position: absolute; right: 12px; top: 12px; width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--borde); background: transparent; color: var(--tinta); cursor: pointer; }
+  .asProBotones { display: grid; gap: 8px; margin-top: 12px; } .asProBotones .accion { margin: 0; border: 0; cursor: pointer; text-align: left; padding: 13px 16px; font-size: .95rem; }
+  .asProBotones .accion.sec { border: 1px solid var(--borde); }
   .entCaja { position: relative; width: min(560px, 100%); }
   .entCaja .cerrar { position: absolute; right: 12px; top: 12px; width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--borde); background: transparent; color: var(--tinta); cursor: pointer; }
   .entPedir { display: flex; gap: 8px; margin: 6px 0 0; } .entPedir input { flex: 1; min-width: 0; } .entPedir .accion { margin: 0; width: auto; padding: 0 16px; }
@@ -246,6 +250,8 @@
       <button type="button" data-ir="proclama">Ir a Proclama</button>
       <button type="button" data-ir="proclamaEdicion">Edición Proclama</button>
       <button type="button" data-ir="entregas">Entrega de videos</button>
+      <button type="button" data-ir="ideasProclama">Ideas de Proclama</button>
+      <button type="button" data-ir="estudio">Estudio de noticias</button>
       <button type="button" id="bSalirEmpresa" class="soloEmpresa">Salir de mi empresa</button>
       <button type="button" id="bBuscas">¿Qué buscas?</button>
       <button type="button" id="bCita">Agendar cita</button>
@@ -342,9 +348,25 @@
   <div class="manualNav"><button type="button" id="manualPrev" class="accion sec">‹ Anterior</button><span id="manualCont"></span><button type="button" id="manualSig" class="accion sec">Siguiente ›</button></div>
 </div>
 
+<div id="asesorPro" class="visor tema-proclama" hidden>
+  <section class="caja pedidoCaja asProCaja" role="dialog" aria-label="Asesora de Proclama">
+    <button type="button" id="asProCerrar" class="cerrar" aria-label="Cerrar">✕</button>
+    <p class="cargo">Proclama del Pacífico · Mariana Ríos, asesora</p>
+    <h2 id="asProTitulo">¿A dónde quieres ir?</h2>
+    <div class="asProBotones">
+      <button type="button" data-dest="proclamaEdicion" class="accion">🎬 Edición de video</button>
+      <button type="button" data-dest="entregas" class="accion">📦 Entrega de videos</button>
+      <button type="button" data-dest="ideasProclama" class="accion">💡 Ideas de Proclama</button>
+      <button type="button" data-dest="proclama" class="accion sec">📰 Redacción</button>
+      <button type="button" data-dest="estudio" class="accion sec">🎙 Estudio de noticias</button>
+    </div>
+    <p class="nota">Elige y tu personaje va corriendo hasta allá.</p>
+  </section>
+</div>
+
 <div id="agente" class="visor" hidden>
   <section class="planesCaja chatCaja agCaja" role="dialog" aria-label="Agente de ideas de Dommy">
-    <header><div><p class="cargo">Dommy · Agente de ideas</p><h2>Cuéntame tu idea</h2></div><button type="button" id="agCerrar" class="cerrar" aria-label="Cerrar">✕</button></header>
+    <header><div><p class="cargo" id="agCargo">Dommy · Agente de ideas</p><h2 id="agTitulo">Cuéntame tu idea</h2></div><button type="button" id="agCerrar" class="cerrar" aria-label="Cerrar">✕</button></header>
     <form id="agClaveForm" class="formPreg" autocomplete="off" hidden><input id="agClave" type="password" placeholder="Clave del equipo" aria-label="Clave del equipo"><button type="submit" class="accion">Entrar</button></form>
     <p id="agClaveErr" class="nota agErr" hidden>Esa clave no es del equipo.</p>
     <div id="agChat" class="chat"></div>
@@ -501,4 +523,4 @@
 </div>
 
 <script>window.__OFICINA_BASE__ = ''; window.__OFICINA_FBX_JSON__ = true;</script>
-<script type="module" src="oficina.js?v=35144fe0"></script>
+<script type="module" src="oficina.js?v=964a61f4"></script>
