@@ -135,6 +135,12 @@
   .chatLog a { color: var(--verde); } .chat2.abierto .chatLog a { pointer-events: auto; }
   #bChat { position: relative; } #bChat[data-n]:not([data-n=""])::after { content: attr(data-n); position: absolute; right: -4px; top: -4px; min-width: 18px; height: 18px; padding: 0 4px; border-radius: 9px; background: #ff4b4b; color: #fff; font-size: .68rem; font-weight: 800; line-height: 18px; text-align: center; }
   #enLinea { pointer-events: auto; cursor: pointer; }
+  .empresaBloque { margin: 2px 0 12px; text-align: left; display: grid; gap: 8px; }
+  .empresaBloque .enlace { justify-self: center; padding: 2px 6px; border: 0; background: transparent; color: var(--verde); font-size: .8rem; font-weight: 600; text-decoration: underline; cursor: pointer; }
+  .empresaBloque select, .empresaBloque input { width: 100%; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--borde); background: rgba(255,255,255,.06); color: var(--tinta); font: inherit; letter-spacing: 0; }
+  .empresaBloque select option { color: #111; } .empresaBloque form { display: grid; gap: 8px; }
+  .soloEmpresa { display: none; } body.conEmpresa .soloEmpresa { display: block; }
+  body.conEmpresa [data-vista], body.conEmpresa #bBuscas { display: none; }
   .chatFila { display: flex; justify-content: flex-end; gap: 6px; align-items: center; }
   .micBtn { flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--borde); background: rgba(8, 12, 13, .85); color: var(--tinta); font-size: 1.05rem; cursor: pointer; }
   .micBtn.on { background: var(--verde); border-color: transparent; }
@@ -233,6 +239,14 @@
       <button type="button" data-vista="piso2">Piso 2</button>
       <button type="button" data-vista="piso3">Piso 3 · Dommy</button>
       <button type="button" data-vista="general">Vista general</button>
+      <button type="button" data-ir="recepcion">Ir a recepción</button>
+      <button type="button" data-ir="edicion">Ir a edición Pilot</button>
+      <button type="button" data-ir="ventas">Ir a ventas</button>
+      <button type="button" data-ir="dommy">Ir a Dommy</button>
+      <button type="button" data-ir="proclama">Ir a Proclama</button>
+      <button type="button" data-ir="proclamaEdicion">Edición Proclama</button>
+      <button type="button" data-ir="entregas">Entrega de videos</button>
+      <button type="button" id="bSalirEmpresa" class="soloEmpresa">Salir de mi empresa</button>
       <button type="button" id="bBuscas">¿Qué buscas?</button>
       <button type="button" id="bCita">Agendar cita</button>
       <button type="button" id="bDia">Ciudad: noche</button>
@@ -457,6 +471,16 @@
       <input id="regNombre" type="text" maxlength="80" autocomplete="name" placeholder="Tu nombre" aria-label="Tu nombre">
       <input id="regWa" type="hidden" value="">
     </div>
+    <div class="empresaBloque">
+      <button type="button" id="empAbrir" class="enlace">¿Eres de Proclama o de Dommy? Entra a tu empresa</button>
+      <form id="empNombreForm" autocomplete="off" hidden>
+        <select id="empCual" aria-label="Tu empresa"><option value="proclama">Proclama del Pacífico</option><option value="dommy">Dommy</option></select>
+        <input id="empNombre" type="text" placeholder="Tu nombre" aria-label="Tu nombre en la empresa">
+        <p id="empError" class="error" hidden>No te encuentro en esa empresa. Escribe tu nombre como te conocen.</p>
+        <button type="submit" class="accion sec">Verificar</button>
+      </form>
+      <p id="empOk" class="nota" hidden></p>
+    </div>
     <p class="elige">Elige tu personaje para entrar</p>
     <div class="dosPers">
       <button type="button" id="elegirM"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="16" r="10"/><path d="M14 60V40c0-9 7-14 18-14s18 5 18 14v20z"/></svg><span>Soy hombre</span></button>
@@ -477,4 +501,4 @@
 </div>
 
 <script>window.__OFICINA_BASE__ = ''; window.__OFICINA_FBX_JSON__ = true;</script>
-<script type="module" src="oficina.js?v=9b8b4d08"></script>
+<script type="module" src="oficina.js?v=35144fe0"></script>
