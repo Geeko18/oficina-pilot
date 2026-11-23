@@ -381,7 +381,7 @@
     <button type="button" id="entCerrar" class="cerrar" aria-label="Cerrar">✕</button>
     <p class="cargo">Proclama del Pacífico · Entrega de videos</p>
     <h2 id="entTitulo">Entrega de videos</h2>
-    <form id="entPedir" autocomplete="off" class="entPedir"><input id="entNombre" type="text" placeholder="Tu nombre" aria-label="Tu nombre"><button type="submit" class="accion">Ver mis entregas</button></form>
+    <form id="entPedir" autocomplete="off" class="entPedir"><input id="entNombre" type="text" placeholder="Tu nombre" aria-label="Tu nombre"><input id="entCodigo" type="password" inputmode="numeric" placeholder="Tu código" aria-label="Tu código"><button type="submit" class="accion">Ver mis entregas</button></form>
     <p id="entNota" class="nota"></p>
     <ul id="entLista" class="entLista"></ul>
   </section>
@@ -390,9 +390,10 @@
 <div id="dmAcceso" class="visor tema-dommy" hidden>
   <form id="dmAccesoForm" class="caja" autocomplete="off">
     <h2>Piso 3 · Dommy</h2>
-    <p>Este piso es solo para el equipo de Dommy. ¿Cómo te llamas?</p>
+    <p>Este piso es solo para el equipo de Dommy. Escribe tu nombre y tu código.</p>
     <input id="dmAccesoNombre" type="text" placeholder="Tu nombre" autocomplete="off" spellcheck="false" aria-label="Tu nombre">
-    <p id="dmAccesoError" class="error" hidden>No te encuentro en el equipo de Dommy. Escribe tu nombre como te conocen.</p>
+    <input id="dmAccesoCodigo" type="password" inputmode="numeric" placeholder="Tu código" autocomplete="off" aria-label="Tu código">
+    <p id="dmAccesoError" class="error" hidden>Nombre o código incorrectos. Revisa los dos.</p>
     <button type="submit" class="accion">Entrar</button>
     <button type="button" id="dmAccesoCerrar" class="accion sec">Cancelar</button>
   </form>
@@ -417,9 +418,10 @@
 <div id="proAcceso" class="visor tema-proclama" hidden>
   <form id="proAccesoForm" class="caja" autocomplete="off">
     <h2>Piso 4 · Proclama del Pacífico</h2>
-    <p>Este piso es solo para el equipo de Proclama. ¿Cómo te llamas?</p>
-    <input id="proAccesoClave" type="password" placeholder="Tu nombre" autocomplete="off" spellcheck="false" aria-label="Tu nombre">
-    <p id="proAccesoError" class="error" hidden>No te encuentro en el equipo de Proclama. Escribe tu nombre como te conocen en la redacción.</p>
+    <p>Este piso es solo para el equipo de Proclama. Escribe tu nombre y tu código.</p>
+    <input id="proAccesoClave" type="text" placeholder="Tu nombre" autocomplete="off" spellcheck="false" aria-label="Tu nombre">
+    <input id="proAccesoCodigo" type="password" inputmode="numeric" placeholder="Tu código" autocomplete="off" aria-label="Tu código">
+    <p id="proAccesoError" class="error" hidden>Nombre o código incorrectos. Revisa los dos.</p>
     <button type="submit" class="accion">Entrar</button>
     <button type="button" id="proAccesoCerrar" class="accion sec">Cancelar</button>
   </form>
@@ -498,7 +500,8 @@
       <form id="empNombreForm" autocomplete="off" hidden>
         <select id="empCual" aria-label="Tu empresa"><option value="proclama">Proclama del Pacífico</option><option value="dommy">Dommy</option></select>
         <input id="empNombre" type="text" placeholder="Tu nombre" aria-label="Tu nombre en la empresa">
-        <p id="empError" class="error" hidden>No te encuentro en esa empresa. Escribe tu nombre como te conocen.</p>
+        <input id="empCodigo" type="password" inputmode="numeric" placeholder="Tu código" autocomplete="off" aria-label="Tu código">
+        <p id="empError" class="error" hidden>Nombre o código incorrectos. Revisa los dos.</p>
         <button type="submit" class="accion sec">Verificar</button>
       </form>
       <p id="empOk" class="nota" hidden></p>
@@ -523,4 +526,4 @@
 </div>
 
 <script>window.__OFICINA_BASE__ = ''; window.__OFICINA_FBX_JSON__ = true;</script>
-<script type="module" src="oficina.js?v=0324311a"></script>
+<script type="module" src="oficina.js?v=4a6a203e"></script>
