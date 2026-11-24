@@ -162,6 +162,18 @@
   .marcasInd button { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 4px; border-radius: 14px; border: 2px solid rgba(255,255,255,.16); background: #fff; color: #222; font: 700 11px system-ui, sans-serif; cursor: pointer; }
   .marcasInd button img { width: 100%; max-height: 64px; object-fit: contain; }
   .marcasInd button.sel { border-color: var(--c, #c79bff); box-shadow: 0 0 0 3px var(--c, #c79bff); }
+  select option { background: #ffffff; color: #111111; }
+  #pedidoInd { align-items: flex-start; overflow-y: auto; padding: 10px 0; }
+  #pedidoInd .caja { max-height: none; margin: 0 auto; padding: 14px 16px 16px; }
+  #pedidoInd h2 { font-size: 20px; line-height: 1.2; margin: 2px 0 8px; }
+  #pedidoInd label { margin-top: 8px; }
+  #pedidoInd textarea { min-height: 64px; }
+  #pedidoInd .nota { margin: 4px 0; font-size: 12.5px; }
+  .chipsInd { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .chipsInd button { padding: 8px 12px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,.22); background: rgba(255,255,255,.06); color: #fff; font: 600 13px system-ui, sans-serif; cursor: pointer; }
+  .chipsInd button.sel { background: #c79bff; border-color: #c79bff; color: #1b1030; }
+  .filaBotInd { display: grid; grid-template-columns: 2fr 1fr; gap: 8px; margin-top: 12px; }
+  .filaBotInd .accion { margin: 0; }
   .tema-indisutex { --verde: #c79bff; --verde-tinta: #1b1030; }
   .tema-indisutex .caja { border-color: rgba(199,155,255,.7); }
   .tema-indisutex .cargo { color: #d9bcff; }
@@ -444,13 +456,15 @@
       <button type="button" data-marca="saramantha" style="--c:#c13cff"><img src="oficina/indisutex/saramantha.png" alt=""><span>Saramantha</span></button>
     </div>
     <p class="nota" id="indInfo">Elige la marca: el video lleva su intro y su final animados.</p>
+    <div>
+      <span style="font:600 12.5px system-ui,sans-serif;opacity:.85">Tipo de video</span>
+      <div class="chipsInd" id="indTipos"><button type="button" class="sel" data-t="Modelaje de pijamas">Modelaje</button><button type="button" data-t="Colección o lanzamiento">Colección</button><button type="button" data-t="Promoción para mayoristas">Mayoristas</button><button type="button" data-t="Detrás de cámaras / la fábrica">La fábrica</button><button type="button" data-t="Otro">Otro</button></div>
+      <input id="indTipo" type="hidden" value="Modelaje de pijamas">
+    </div>
+    <label>Enlace de la carpeta o del video<input id="indEnlace" type="url" required maxlength="400" placeholder="https://drive.google.com/…"></label>
+    <label>Indicaciones (prendas, ofertas, música…)<textarea id="indInstr" rows="2" maxlength="1500" placeholder="Qué prendas salen, ofertas, tallas, qué incluir o evitar…"></textarea></label>
     <label>¿Quién envía?<input id="indQuien" type="text" maxlength="80" placeholder="Tu nombre"></label>
-    <label>Tipo de video
-      <select id="indTipo"><option>Modelaje de pijamas</option><option>Colección o lanzamiento</option><option>Promoción para mayoristas</option><option>Detrás de cámaras / la fábrica</option><option>Otro</option></select></label>
-    <label>Enlace de la carpeta o del video (Drive u otro)<input id="indEnlace" type="url" required maxlength="400" placeholder="https://drive.google.com/…"></label>
-    <label>Indicaciones para este video<textarea id="indInstr" rows="3" maxlength="1500" placeholder="Qué prendas salen, ofertas, tallas, música, qué incluir o evitar…"></textarea></label>
-    <button type="submit" class="accion">Enviar solicitud</button>
-    <button type="button" id="indCerrar" class="accion sec">Cancelar</button>
+    <div class="filaBotInd"><button type="submit" class="accion">Enviar solicitud</button><button type="button" id="indCerrar" class="accion sec">Cancelar</button></div>
     <p class="nota" id="indNota">Tu solicitud llega directo a edición de video.</p>
   </form>
 </div>
@@ -556,4 +570,4 @@
 </div>
 
 <script>window.__OFICINA_BASE__ = ''; window.__OFICINA_FBX_JSON__ = true;</script>
-<script type="module" src="oficina.js?v=9457310e"></script>
+<script type="module" src="oficina.js?v=42942f4e"></script>
