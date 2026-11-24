@@ -1,0 +1,27 @@
+{
+ "lovely": {
+  "nombre": "Lovely Pijamas",
+  "carpetas": [],
+  "id": "1IL2PkA0EMrex7Zh7bUvPg3atU4ofxQrB"
+ },
+ "lucerito": {
+  "nombre": "Lucerito Pijamas",
+  "carpetas": [
+   {
+    "nombre": "Compré pijamas Lucerito",
+    "url": "https://drive.google.com/drive/folders/1Lz8FRzLUitz3_BaWrzajcrkTC7RCCcy3"
+   }
+  ],
+  "id": "1_7Vm0nuutrlCf3VXv89Bzoc-PP5tq2HH"
+ },
+ "majestic": {
+  "nombre": "Sublimados Majestic",
+  "carpetas": [],
+  "id": "1gGiU1oq9kjY-_qRtmnyRJVUCvawDopaO"
+ },
+ "saramantha": {
+  "nombre": "Saramantha Pijamas",
+  "carpetas": [],
+  "id": "1RKZgLmjoGVbc8uH9NtNI1wsQOPUxbCXH"
+ }
+}

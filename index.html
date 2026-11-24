@@ -172,6 +172,10 @@
   .chipsInd { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
   .chipsInd button { padding: 8px 12px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,.22); background: rgba(255,255,255,.06); color: #fff; font: 600 13px system-ui, sans-serif; cursor: pointer; }
   .chipsInd button.sel { background: #c79bff; border-color: #c79bff; color: #1b1030; }
+  .carpetasInd { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+  .carpetasInd button { text-align: left; display: flex; gap: 10px; align-items: center; padding: 10px 12px; border-radius: 12px; border: 1.5px solid rgba(255,255,255,.2); background: rgba(255,255,255,.06); color: #fff; font: 600 14px system-ui, sans-serif; cursor: pointer; }
+  .carpetasInd button.sel { border-color: #c79bff; background: rgba(199,155,255,.25); }
+  .carpetasInd .vacio { font: 500 13px system-ui, sans-serif; opacity: .75; padding: 4px 2px; }
   .filaBotInd { display: grid; grid-template-columns: 2fr 1fr; gap: 8px; margin-top: 12px; }
   .filaBotInd .accion { margin: 0; }
   .tema-indisutex { --verde: #c79bff; --verde-tinta: #1b1030; }
@@ -462,7 +466,11 @@
       <div class="chipsInd" id="indTipos"><button type="button" class="sel" data-t="Modelaje de pijamas">Modelaje</button><button type="button" data-t="Colección o lanzamiento">Colección</button><button type="button" data-t="Promoción para mayoristas">Mayoristas</button><button type="button" data-t="Detrás de cámaras / la fábrica">La fábrica</button><button type="button" data-t="Otro">Otro</button></div>
       <input id="indTipo" type="hidden" value="Modelaje de pijamas">
     </div>
-    <label>Enlace de la carpeta o del video<input id="indEnlace" type="url" required maxlength="400" placeholder="https://drive.google.com/…"></label>
+    <div id="indCarpetasCaja" hidden>
+      <span style="font:600 12.5px system-ui,sans-serif;opacity:.85">¿Cuál carpeta de Drive tiene el material?</span>
+      <div class="carpetasInd" id="indCarpetas"></div>
+    </div>
+    <label id="indEnlaceEt">Enlace de la carpeta o del video<input id="indEnlace" type="url" maxlength="400" placeholder="https://drive.google.com/…"></label>
     <label>Indicaciones (prendas, ofertas, música…)<textarea id="indInstr" rows="2" maxlength="1500" placeholder="Qué prendas salen, ofertas, tallas, qué incluir o evitar…"></textarea></label>
     <label>¿Quién envía?<input id="indQuien" type="text" maxlength="80" placeholder="Tu nombre"></label>
     <div class="filaBotInd"><button type="submit" class="accion">Enviar solicitud</button><button type="button" id="indCerrar" class="accion sec">Cancelar</button></div>
@@ -571,4 +579,4 @@
 </div>
 
 <script>window.__OFICINA_BASE__ = ''; window.__OFICINA_FBX_JSON__ = true;</script>
-<script type="module" src="oficina.js?v=1c019c6a"></script>
+<script type="module" src="oficina.js?v=db645640"></script>
