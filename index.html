@@ -478,6 +478,18 @@
   </form>
 </div>
 
+<div id="inAcceso" class="visor tema-indisutex" hidden>
+  <form id="inAccesoForm" class="caja" autocomplete="off">
+    <h2>Piso 4 · Indisutex</h2>
+    <p>Este piso es solo para el equipo de Indisutex. Escribe tu nombre y el código de la empresa.</p>
+    <input id="inAccesoNombre" type="text" placeholder="Tu nombre" autocomplete="off" spellcheck="false" aria-label="Tu nombre">
+    <input id="inAccesoCodigo" type="password" inputmode="numeric" placeholder="Código de la empresa" autocomplete="off" aria-label="Código de la empresa">
+    <p id="inAccesoError" class="error" hidden>Nombre o código incorrectos. Revisa los dos.</p>
+    <button type="submit" class="accion">Entrar</button>
+    <button type="button" id="inAccesoCerrar" class="accion sec">Cancelar</button>
+  </form>
+</div>
+
 <div id="ascensor" class="ascensor" hidden role="dialog" aria-label="Ascensor">
   <p class="cargo">Ascensor</p>
   <h2>¿A qué piso vas?</h2>
@@ -544,7 +556,7 @@
     <div id="empBloque" class="empresaBloque">
       <h2>¿De qué empresa vienes?</h2>
       <form id="empNombreForm" autocomplete="off">
-        <select id="empCual" aria-label="Tu empresa"><option value="dommy">Dommy</option></select>
+        <select id="empCual" aria-label="Tu empresa"><option value="dommy">Dommy</option><option value="indisutex">Indisutex</option></select>
         <input id="empNombre" type="text" placeholder="Tu nombre" autocomplete="off" spellcheck="false" aria-label="Tu nombre">
         <input id="empCodigo" type="password" inputmode="numeric" placeholder="Tu código" autocomplete="off" aria-label="Tu código">
         <p id="empError" class="error" hidden>Nombre o código incorrectos. Revisa los dos.</p>
@@ -579,4 +591,4 @@
 </div>
 
 <script>window.__OFICINA_BASE__ = ''; window.__OFICINA_FBX_JSON__ = true;</script>
-<script type="module" src="oficina.js?v=db645640"></script>
+<script type="module" src="oficina.js?v=6f89a837"></script>
