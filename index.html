@@ -247,11 +247,6 @@
       <button type="button" data-ir="edicion">Ir a edición Pilot</button>
       <button type="button" data-ir="ventas">Ir a ventas</button>
       <button type="button" data-ir="dommy">Ir a Dommy</button>
-      <button type="button" data-ir="proclama">Ir a Proclama</button>
-      <button type="button" data-ir="proclamaEdicion">Edición Proclama</button>
-      <button type="button" data-ir="entregas">Entrega de videos</button>
-      <button type="button" data-ir="ideasProclama">Ideas de Proclama</button>
-      <button type="button" data-ir="estudio">Estudio de noticias</button>
       <button type="button" id="bSalirEmpresa" class="soloEmpresa">Salir de mi empresa</button>
       <button type="button" id="bBuscas">¿Qué buscas?</button>
       <button type="button" id="bCita">Agendar cita</button>
@@ -430,7 +425,6 @@
 <div id="ascensor" class="ascensor" hidden role="dialog" aria-label="Ascensor">
   <p class="cargo">Ascensor</p>
   <h2>¿A qué piso vas?</h2>
-  <button type="button" data-piso="3"><b>4</b><span>Proclama del Pacífico · redacción y edición</span></button>
   <button type="button" data-piso="2"><b>3</b><span>Dommy · plataforma para restaurantes</span></button>
   <button type="button" data-piso="1"><b>2</b><span>Portales web, propuestas, edición de video y métricas</span></button>
   <button type="button" data-piso="0"><b>1</b><span>Oficina Pilot · equipo, ventas y exhibición</span></button>
@@ -493,7 +487,7 @@
     <div id="empBloque" class="empresaBloque">
       <h2>¿De qué empresa vienes?</h2>
       <form id="empNombreForm" autocomplete="off">
-        <select id="empCual" aria-label="Tu empresa"><option value="proclama">Proclama del Pacífico</option><option value="dommy">Dommy</option></select>
+        <select id="empCual" aria-label="Tu empresa"><option value="dommy">Dommy</option></select>
         <input id="empNombre" type="text" placeholder="Tu nombre" autocomplete="off" spellcheck="false" aria-label="Tu nombre">
         <input id="empCodigo" type="password" inputmode="numeric" placeholder="Tu código" autocomplete="off" aria-label="Tu código">
         <p id="empError" class="error" hidden>Nombre o código incorrectos. Revisa los dos.</p>
@@ -528,4 +522,4 @@
 </div>
 
 <script>window.__OFICINA_BASE__ = ''; window.__OFICINA_FBX_JSON__ = true;</script>
-<script type="module" src="oficina.js?v=1ff738d4"></script>
+<script type="module" src="oficina.js?v=5621962f"></script>
