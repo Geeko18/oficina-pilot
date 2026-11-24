@@ -176,6 +176,13 @@
   .carpetasInd button { text-align: left; display: flex; gap: 10px; align-items: center; padding: 10px 12px; border-radius: 12px; border: 1.5px solid rgba(255,255,255,.2); background: rgba(255,255,255,.06); color: #fff; font: 600 14px system-ui, sans-serif; cursor: pointer; }
   .carpetasInd button.sel { border-color: #c79bff; background: rgba(199,155,255,.25); }
   .carpetasInd .vacio { font: 500 13px system-ui, sans-serif; opacity: .75; padding: 4px 2px; }
+  #indTipoEt, #indTipos, #indCarpetasCaja, #indAbrirGeneral, #indInfo { display: none !important; }
+  .btnCarpeta { display: flex; align-items: center; gap: 12px; padding: 12px 14px; margin: 10px 0 4px; border-radius: 14px; border: 1.5px dashed rgba(199,155,255,.8); background: rgba(199,155,255,.12); color: #fff; text-decoration: none; cursor: pointer; }
+  .btnCarpeta svg { flex: none; width: 38px; height: 32px; }
+  .btnCarpeta b { display: block; font: 700 15px system-ui, sans-serif; }
+  .btnCarpeta small { display: block; font: 500 12.5px system-ui, sans-serif; opacity: .8; margin-top: 2px; }
+  .btnCarpeta:hover { background: rgba(199,155,255,.22); }
+  details.otroEnlace { margin-top: 8px; font: 500 12.5px system-ui, sans-serif; } details.otroEnlace summary { cursor: pointer; opacity: .75; }
   .filaBotInd { display: grid; grid-template-columns: 2fr 1fr; gap: 8px; margin-top: 12px; }
   .filaBotInd .accion { margin: 0; }
   .tema-indisutex { --verde: #c79bff; --verde-tinta: #1b1030; }
@@ -463,16 +470,16 @@
       <div class="chipsInd" id="indTipos"></div>
       <input id="indTipo" type="hidden" value="Modelaje de pijamas">
     </div>
-    <a id="indAbrirDrive" class="accion" target="_blank" rel="noopener noreferrer" hidden style="display:block;text-align:center;text-decoration:none;margin:8px 0 2px">📁 Abrir la carpeta en Drive y subir mi material</a>
+    <a id="indAbrirDrive" class="btnCarpeta" target="_blank" rel="noopener noreferrer"></a>
     <a id="indAbrirGeneral" target="_blank" rel="noopener noreferrer" hidden style="display:block;text-align:center;font:600 12.5px system-ui,sans-serif;color:#d9bcff;margin:4px 0 6px">o abre la carpeta general de Indisutex en Drive</a>
     <button type="button" id="indDrive" class="accion sec" hidden style="margin:8px 0 2px">📁 Elegir desde Google Drive</button>
     <div id="indCarpetasCaja" hidden>
       <span style="font:600 12.5px system-ui,sans-serif;opacity:.85">¿Cuál carpeta de Drive tiene el material?</span>
       <div class="carpetasInd" id="indCarpetas"></div>
     </div>
-    <label id="indEnlaceEt">Enlace específico (opcional)<input id="indEnlace" type="url" maxlength="400" placeholder="Solo si el material está en otra carpeta"></label>
-    <label>Indicaciones (prendas, ofertas, música…)<textarea id="indInstr" rows="2" maxlength="1500" placeholder="Qué prendas salen, ofertas, tallas, qué incluir o evitar…"></textarea></label>
-    <label>¿Quién envía?<input id="indQuien" type="text" maxlength="80" placeholder="Tu nombre"></label>
+    <details class="otroEnlace"><summary>¿El material está en otra carpeta?</summary><label id="indEnlaceEt">Pega aquí su enlace<input id="indEnlace" type="url" maxlength="400" placeholder="https://drive.google.com/…"></label></details>
+    <label>Indicaciones (opcional)<textarea id="indInstr" rows="2" maxlength="1500" placeholder="Prendas, ofertas, tallas…"></textarea></label>
+    <label id="indQuienEt">¿Quién envía?<input id="indQuien" type="text" maxlength="80" placeholder="Tu nombre"></label>
     <div class="filaBotInd"><button type="submit" class="accion">Enviar solicitud</button><button type="button" id="indCerrar" class="accion sec">Cancelar</button></div>
     <p class="nota" id="indNota">Tu solicitud llega directo a edición de video.</p>
   </form>
@@ -591,4 +598,4 @@
 </div>
 
 <script>window.__OFICINA_BASE__ = ''; window.__OFICINA_FBX_JSON__ = true;</script>
-<script type="module" src="oficina.js?v=2d2bb596"></script>
+<script type="module" src="oficina.js?v=f59eef0b"></script>
