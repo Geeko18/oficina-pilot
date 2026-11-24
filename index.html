@@ -270,6 +270,7 @@
       <button type="button" data-ir="disenoInd">Diseño y video (Indisutex)</button>
       <button type="button" data-ir="bodegaInd">Bodega (Indisutex)</button>
       <button type="button" data-ir="dtfInd">Impresión DTF (Indisutex)</button>
+      <button type="button" data-ir="entregaInd">Entrega de videos (Indisutex)</button>
       <button type="button" id="bSalirEmpresa" class="soloEmpresa">Salir de mi empresa</button>
       <button type="button" id="bBuscas">¿Qué buscas?</button>
       <button type="button" id="bCita">Agendar cita</button>
@@ -394,12 +395,12 @@
   </section>
 </div>
 
-<div id="entregas" class="visor tema-proclama" hidden>
+<div id="entregas" class="visor tema-indisutex" hidden>
   <section class="caja pedidoCaja entCaja" role="dialog" aria-label="Entrega de videos">
     <button type="button" id="entCerrar" class="cerrar" aria-label="Cerrar">✕</button>
-    <p class="cargo">Proclama del Pacífico · Entrega de videos</p>
+    <p class="cargo">Indisutex · Entrega de videos</p>
     <h2 id="entTitulo">Entrega de videos</h2>
-    <form id="entPedir" autocomplete="off" class="entPedir"><input id="entNombre" type="text" placeholder="Tu nombre" aria-label="Tu nombre"><input id="entCodigo" type="password" inputmode="numeric" placeholder="Tu código" aria-label="Tu código"><button type="submit" class="accion">Ver mis entregas</button></form>
+    <form id="entPedir" autocomplete="off" class="entPedir"><input id="entNombre" type="text" placeholder="Tu nombre (el mismo de tu pedido)" aria-label="Tu nombre"><button type="submit" class="accion">Ver mis videos</button></form>
     <p id="entNota" class="nota"></p>
     <ul id="entLista" class="entLista"></ul>
   </section>
@@ -570,4 +571,4 @@
 </div>
 
 <script>window.__OFICINA_BASE__ = ''; window.__OFICINA_FBX_JSON__ = true;</script>
-<script type="module" src="oficina.js?v=42942f4e"></script>
+<script type="module" src="oficina.js?v=1c019c6a"></script>
