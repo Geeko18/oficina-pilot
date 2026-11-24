@@ -158,6 +158,13 @@
   .tema-proclama { --verde: #da1616; --verde-tinta: #ffffff; }
   .tema-proclama .caja, .ficha.tema-proclama { border-color: rgba(218, 22, 22, .7); }
   .tema-proclama .cargo { color: #ff5a5a; }
+  .marcasInd { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 6px 0 10px; }
+  .marcasInd button { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 4px; border-radius: 14px; border: 2px solid rgba(255,255,255,.16); background: #fff; color: #222; font: 700 11px system-ui, sans-serif; cursor: pointer; }
+  .marcasInd button img { width: 100%; max-height: 64px; object-fit: contain; }
+  .marcasInd button.sel { border-color: var(--c, #c79bff); box-shadow: 0 0 0 3px var(--c, #c79bff); }
+  .tema-indisutex { --verde: #c79bff; --verde-tinta: #1b1030; }
+  .tema-indisutex .caja { border-color: rgba(199,155,255,.7); }
+  .tema-indisutex .cargo { color: #d9bcff; }
   @media (max-width: 420px) { .pedidoCaja .dos { grid-template-columns: 1fr; } }
   .elegirCaja { width: min(440px, 100%); text-align: center; }
   .elegirCaja .cargo { margin: 0 0 4px; color: var(--verde); font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
@@ -426,6 +433,28 @@
   </form>
 </div>
 
+<div id="pedidoInd" class="visor tema-indisutex" hidden>
+  <form id="indForm" class="caja pedidoCaja" autocomplete="off">
+    <p class="cargo">Indisutex · Diseño gráfico y edición de video</p>
+    <h2 id="indTitulo">Hola, soy el editor. ¿Para qué marca es el video?</h2>
+    <div class="marcasInd" id="indMarcas">
+      <button type="button" data-marca="lucerito" style="--c:#9b6bd6"><img src="oficina/indisutex/lucerito.png" alt=""><span>Lucerito</span></button>
+      <button type="button" data-marca="lovely" style="--c:#ff5fa8"><img src="oficina/indisutex/lovely.png" alt=""><span>Lovely</span></button>
+      <button type="button" data-marca="majestic" style="--c:#ff1493"><img src="oficina/indisutex/majestic.png" alt=""><span>Majestic</span></button>
+      <button type="button" data-marca="saramantha" style="--c:#c13cff"><img src="oficina/indisutex/saramantha.png" alt=""><span>Saramantha</span></button>
+    </div>
+    <p class="nota" id="indInfo">Elige la marca: el video lleva su intro y su final animados.</p>
+    <label>¿Quién envía?<input id="indQuien" type="text" maxlength="80" placeholder="Tu nombre"></label>
+    <label>Tipo de video
+      <select id="indTipo"><option>Modelaje de pijamas</option><option>Colección o lanzamiento</option><option>Promoción para mayoristas</option><option>Detrás de cámaras / la fábrica</option><option>Otro</option></select></label>
+    <label>Enlace de la carpeta o del video (Drive u otro)<input id="indEnlace" type="url" required maxlength="400" placeholder="https://drive.google.com/…"></label>
+    <label>Indicaciones para este video<textarea id="indInstr" rows="3" maxlength="1500" placeholder="Qué prendas salen, ofertas, tallas, música, qué incluir o evitar…"></textarea></label>
+    <button type="submit" class="accion">Enviar solicitud</button>
+    <button type="button" id="indCerrar" class="accion sec">Cancelar</button>
+    <p class="nota" id="indNota">Tu solicitud llega directo a edición de video.</p>
+  </form>
+</div>
+
 <div id="ascensor" class="ascensor" hidden role="dialog" aria-label="Ascensor">
   <p class="cargo">Ascensor</p>
   <h2>¿A qué piso vas?</h2>
@@ -527,4 +556,4 @@
 </div>
 
 <script>window.__OFICINA_BASE__ = ''; window.__OFICINA_FBX_JSON__ = true;</script>
-<script type="module" src="oficina.js?v=350ad2f1"></script>
+<script type="module" src="oficina.js?v=9457310e"></script>
