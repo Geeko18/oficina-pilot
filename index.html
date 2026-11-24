@@ -158,7 +158,7 @@
   .tema-proclama { --verde: #da1616; --verde-tinta: #ffffff; }
   .tema-proclama .caja, .ficha.tema-proclama { border-color: rgba(218, 22, 22, .7); }
   .tema-proclama .cargo { color: #ff5a5a; }
-  .marcasInd { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 6px 0 10px; }
+  .marcasInd { display: grid; grid-template-columns: repeat(auto-fit, minmax(72px, 1fr)); gap: 8px; margin: 6px 0 10px; }
   .marcasInd button { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 4px; border-radius: 14px; border: 2px solid rgba(255,255,255,.16); background: #fff; color: #222; font: 700 11px system-ui, sans-serif; cursor: pointer; }
   .marcasInd button img { width: 100%; max-height: 64px; object-fit: contain; }
   .marcasInd button.sel { border-color: var(--c, #c79bff); box-shadow: 0 0 0 3px var(--c, #c79bff); }
@@ -454,12 +454,7 @@
   <form id="indForm" class="caja pedidoCaja" autocomplete="off">
     <p class="cargo">Indisutex · Diseño gráfico y edición de video</p>
     <h2 id="indTitulo">Hola, soy el editor. ¿Para qué marca es el video?</h2>
-    <div class="marcasInd" id="indMarcas">
-      <button type="button" data-marca="lucerito" style="--c:#9b6bd6"><img src="oficina/indisutex/lucerito.png" alt=""><span>Lucerito</span></button>
-      <button type="button" data-marca="lovely" style="--c:#ff5fa8"><img src="oficina/indisutex/lovely.png" alt=""><span>Lovely</span></button>
-      <button type="button" data-marca="majestic" style="--c:#ff1493"><img src="oficina/indisutex/majestic.png" alt=""><span>Majestic</span></button>
-      <button type="button" data-marca="saramantha" style="--c:#c13cff"><img src="oficina/indisutex/saramantha.png" alt=""><span>Saramantha</span></button>
-    </div>
+    <div class="marcasInd" id="indMarcas"></div>
     <p class="nota" id="indInfo">Elige la marca: el video lleva su intro y su final animados.</p>
     <div>
       <span style="font:600 12.5px system-ui,sans-serif;opacity:.85">¿Qué necesitas?</span>
@@ -593,4 +588,4 @@
 </div>
 
 <script>window.__OFICINA_BASE__ = ''; window.__OFICINA_FBX_JSON__ = true;</script>
-<script type="module" src="oficina.js?v=c5b0f993"></script>
+<script type="module" src="oficina.js?v=bc3eb127"></script>
