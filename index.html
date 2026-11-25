@@ -228,6 +228,7 @@
   .paBotones { display: flex; gap: 10px; margin-top: 8px; } .paBotones .accion { flex: 1; margin: 0; }
   .paCaja [hidden] { display: none !important; }
   .elegirCaja { width: min(440px, 100%); text-align: center; }
+  #bTengoCodigo { display: block; margin: 14px auto 0; border: 0; background: transparent; color: var(--verde); font: 600 .85rem system-ui, sans-serif; text-decoration: underline; cursor: pointer; }
   .elegirCaja .cargo { margin: 0 0 4px; color: var(--verde); font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
   .dosPers { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 6px; }
   .dosPers button { display: grid; justify-items: center; gap: 10px; padding: 20px 10px 16px; border-radius: 16px; border: 1px solid var(--borde); background: rgba(255, 255, 255, .05); color: var(--tinta); font-weight: 700; font-size: .95rem; cursor: pointer; }
@@ -643,16 +644,16 @@
 <div id="elegir" class="visor" hidden>
   <div class="caja elegirCaja" role="dialog" aria-label="Entrar a la oficina">
     <p class="cargo">Bienvenido a la Oficina Pilot</p>
-    <div id="empBloque" class="empresaBloque">
+    <div id="empBloque" class="empresaBloque" hidden>
       <h2>Tu código de acceso</h2>
       <form id="empNombreForm" autocomplete="off">
         <input id="empCodigo" type="password" inputmode="numeric" placeholder="Código de acceso" autocomplete="off" aria-label="Código de acceso">
         <p id="empError" class="error" hidden>Código incorrecto. Revísalo.</p>
         <button type="submit" class="accion">Entrar</button>
       </form>
-      <button type="button" id="empVisitante" class="enlace">Solo estoy visitando</button>
+      <button type="button" id="empVisitante" class="enlace">Entrar sin código</button>
     </div>
-    <div id="visitaBloque" hidden>
+    <div id="visitaBloque">
       <h2>¿Cómo te llamas?</h2>
       <div class="registro">
         <input id="regNombre" type="text" maxlength="80" autocomplete="name" placeholder="Tu nombre" aria-label="Tu nombre">
@@ -663,6 +664,7 @@
         <button type="button" id="elegirM"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="16" r="10"/><path d="M14 60V40c0-9 7-14 18-14s18 5 18 14v20z"/></svg><span>Soy hombre</span></button>
         <button type="button" id="elegirF"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="16" r="10"/><path d="M32 26c-9 0-14 5-16 13l-6 21h44l-6-21c-2-8-7-13-16-13z"/></svg><span>Soy mujer</span></button>
       </div>
+      <button type="button" id="bTengoCodigo" class="enlace">Tengo un código de acceso</button>
     </div>
   </div>
 </div>
@@ -679,4 +681,4 @@
 </div>
 
 <script>window.__OFICINA_BASE__ = ''; window.__OFICINA_FBX_JSON__ = true;</script>
-<script type="module" src="oficina.js?v=e16d6508"></script>
+<script type="module" src="oficina.js?v=65445414"></script>
