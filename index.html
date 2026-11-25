@@ -186,6 +186,11 @@
   .btnCarpeta small { display: block; font: 500 12.5px system-ui, sans-serif; opacity: .8; margin-top: 2px; }
   .btnCarpeta:hover { background: rgba(199,155,255,.22); }
   details.otroEnlace { margin-top: 8px; font: 500 12.5px system-ui, sans-serif; } details.otroEnlace summary { cursor: pointer; opacity: .75; }
+  #vistaCtl { position: fixed; right: 14px; bottom: 150px; z-index: 30; display: none; flex-direction: column; gap: 8px; }
+  body.enJuego #vistaCtl { display: flex; }
+  #vistaCtl button { width: 52px; height: 52px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,.3); background: rgba(8,12,13,.78); color: #fff; font: 800 11px system-ui, sans-serif; cursor: pointer; backdrop-filter: blur(6px); }
+  #vistaCtl button.on { background: #1be37a; color: #04120b; border-color: #1be37a; }
+  #vistaCtl .zoom { display: none; font-size: 22px; font-weight: 700; } #vistaCtl.arriba .zoom { display: block; }
   .filaBotInd { display: grid; grid-template-columns: 2fr 1fr; gap: 8px; margin-top: 12px; }
   .filaBotInd .accion { margin: 0; }
   .tema-indisutex { --verde: #c79bff; --verde-tinta: #1b1030; }
@@ -501,6 +506,8 @@
   </form>
 </div>
 
+<div id="vistaCtl" aria-label="Vista"><button type="button" id="bVista" title="Cambiar a la vista desde arriba">Vista<br>arriba</button><button type="button" id="bZoomMas" class="zoom" aria-label="Acercar">+</button><button type="button" id="bZoomMenos" class="zoom" aria-label="Alejar">−</button></div>
+
 <div id="oroAcceso" class="visor" hidden>
   <form id="oroAccesoForm" class="caja" autocomplete="off" style="border-color:rgba(217,168,58,.75)">
     <h2>Piso 5 · Oro y Piel</h2>
@@ -612,4 +619,4 @@
 </div>
 
 <script>window.__OFICINA_BASE__ = ''; window.__OFICINA_FBX_JSON__ = true;</script>
-<script type="module" src="oficina.js?v=3e1b18f6"></script>
+<script type="module" src="oficina.js?v=a7b1b59e"></script>
