@@ -423,9 +423,8 @@
 <div id="dmAcceso" class="visor tema-dommy" hidden>
   <form id="dmAccesoForm" class="caja" autocomplete="off">
     <h2>Piso 3 · Dommy</h2>
-    <p>Este piso es solo para el equipo de Dommy. Escribe tu nombre y tu código.</p>
-    <input id="dmAccesoNombre" type="text" placeholder="Tu nombre" autocomplete="off" spellcheck="false" aria-label="Tu nombre">
-    <input id="dmAccesoCodigo" type="password" inputmode="numeric" placeholder="Tu código" autocomplete="off" aria-label="Tu código">
+    <p>Este piso es solo para el equipo de Dommy. Escribe tu código de acceso.</p>
+        <input id="dmAccesoCodigo" type="password" inputmode="numeric" placeholder="Tu código" autocomplete="off" aria-label="Tu código">
     <p id="dmAccesoError" class="error" hidden>Nombre o código incorrectos. Revisa los dos.</p>
     <button type="submit" class="accion">Entrar</button>
     <button type="button" id="dmAccesoCerrar" class="accion sec">Cancelar</button>
@@ -492,9 +491,8 @@
 <div id="inAcceso" class="visor tema-indisutex" hidden>
   <form id="inAccesoForm" class="caja" autocomplete="off">
     <h2>Piso 4 · Indisutex</h2>
-    <p>Este piso es solo para el equipo de Indisutex. Escribe tu nombre y el código de la empresa.</p>
-    <input id="inAccesoNombre" type="text" placeholder="Tu nombre" autocomplete="off" spellcheck="false" aria-label="Tu nombre">
-    <input id="inAccesoCodigo" type="password" inputmode="numeric" placeholder="Código de la empresa" autocomplete="off" aria-label="Código de la empresa">
+    <p>Este piso es solo para el equipo de Indisutex. Escribe tu código de acceso.</p>
+        <input id="inAccesoCodigo" type="password" inputmode="numeric" placeholder="Código de acceso" autocomplete="off" aria-label="Código de acceso">
     <p id="inAccesoError" class="error" hidden>Nombre o código incorrectos. Revisa los dos.</p>
     <button type="submit" class="accion">Entrar</button>
     <button type="button" id="inAccesoCerrar" class="accion sec">Cancelar</button>
@@ -565,13 +563,11 @@
   <div class="caja elegirCaja" role="dialog" aria-label="Entrar a la oficina">
     <p class="cargo">Bienvenido a la Oficina Pilot</p>
     <div id="empBloque" class="empresaBloque">
-      <h2>¿De qué empresa vienes?</h2>
+      <h2>Tu código de acceso</h2>
       <form id="empNombreForm" autocomplete="off">
-        <select id="empCual" aria-label="Tu empresa"><option value="dommy">Dommy</option><option value="indisutex">Indisutex</option></select>
-        <input id="empNombre" type="text" placeholder="Tu nombre" autocomplete="off" spellcheck="false" aria-label="Tu nombre">
-        <input id="empCodigo" type="password" inputmode="numeric" placeholder="Tu código" autocomplete="off" aria-label="Tu código">
-        <p id="empError" class="error" hidden>Nombre o código incorrectos. Revisa los dos.</p>
-        <button type="submit" class="accion">Entrar a mi empresa</button>
+        <input id="empCodigo" type="password" inputmode="numeric" placeholder="Código de acceso" autocomplete="off" aria-label="Código de acceso">
+        <p id="empError" class="error" hidden>Código incorrecto. Revísalo.</p>
+        <button type="submit" class="accion">Entrar</button>
       </form>
       <button type="button" id="empVisitante" class="enlace">Solo estoy visitando</button>
     </div>
@@ -602,4 +598,4 @@
 </div>
 
 <script>window.__OFICINA_BASE__ = ''; window.__OFICINA_FBX_JSON__ = true;</script>
-<script type="module" src="oficina.js?v=4c1c712a"></script>
+<script type="module" src="oficina.js?v=5e2858c7"></script>
