@@ -194,6 +194,10 @@
   .filaBotInd { display: grid; grid-template-columns: 2fr 1fr; gap: 8px; margin-top: 12px; }
   .filaBotInd .accion { margin: 0; }
   .tema-indisutex { --verde: #c79bff; --verde-tinta: #1b1030; }
+  .tema-oro { --verde: #d9a83a; --verde-tinta: #1a1405; }
+  .tema-oro .caja { border-color: rgba(217,168,58,.75); }
+  .tema-oro .cargo { color: #e8c777; }
+  .tema-oro .chipsInd button.sel { background: #d9a83a; color: #1a1405; border-color: #d9a83a; }
   .tema-indisutex .caja { border-color: rgba(199,155,255,.7); }
   .tema-indisutex .cargo { color: #d9bcff; }
   @media (max-width: 420px) { .pedidoCaja .dos { grid-template-columns: 1fr; } }
@@ -508,6 +512,25 @@
 
 <div id="vistaCtl" aria-label="Vista"><button type="button" id="bVista" title="Cambiar a la vista desde arriba">Vista<br>arriba</button><button type="button" id="bZoomMas" class="zoom" aria-label="Acercar">+</button><button type="button" id="bZoomMenos" class="zoom" aria-label="Alejar">−</button></div>
 
+<div id="pedidoOro" class="visor tema-oro" hidden>
+  <form id="oroForm" class="caja pedidoCaja" autocomplete="off">
+    <p class="cargo">Oro y Piel · Edición de video y diseño</p>
+    <h2 id="oroTitulo">Hola, soy el editor. ¿Qué necesitas?</h2>
+    <div>
+      <div class="chipsInd" id="oroKinds"><button type="button" class="sel" data-k="reel">Reel de video</button><button type="button" data-k="pieza">Pieza gráfica</button></div>
+      <span id="oroTipoEt" style="display:block;margin-top:8px;font:600 12.5px system-ui,sans-serif;opacity:.85">Tipo de video</span>
+      <div class="chipsInd" id="oroTipos"></div>
+      <input id="oroTipo" type="hidden" value="Anuncio de la plataforma">
+    </div>
+    <label>Enlace de tu material (Drive, WeTransfer…)<input id="oroEnlace" type="url" maxlength="400" placeholder="https://drive.google.com/…" required></label>
+    <label>Enlace de referencias (opcional)<input id="oroRef" type="url" maxlength="400" placeholder="Un video o carpeta que te guste"></label>
+    <label>Indicaciones (opcional)<textarea id="oroInstr" rows="2" maxlength="1500" placeholder="Qué quieres que diga, duración, formato…"></textarea></label>
+    <label id="oroQuienEt">¿Quién envía?<input id="oroQuien" type="text" maxlength="80" placeholder="Tu nombre"></label>
+    <div class="filaBotInd"><button type="submit" class="accion">Enviar solicitud</button><button type="button" id="oroCerrar" class="accion sec">Cancelar</button></div>
+    <p class="nota" id="oroNota">Tu solicitud llega directo a edición de video.</p>
+  </form>
+</div>
+
 <div id="oroAcceso" class="visor" hidden>
   <form id="oroAccesoForm" class="caja" autocomplete="off" style="border-color:rgba(217,168,58,.75)">
     <h2>Piso 5 · Oro y Piel</h2>
@@ -619,4 +642,4 @@
 </div>
 
 <script>window.__OFICINA_BASE__ = ''; window.__OFICINA_FBX_JSON__ = true;</script>
-<script type="module" src="oficina.js?v=dde9f91d"></script>
+<script type="module" src="oficina.js?v=43d2e2e0"></script>
