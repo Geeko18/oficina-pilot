@@ -201,6 +201,32 @@
   .tema-indisutex .caja { border-color: rgba(199,155,255,.7); }
   .tema-indisutex .cargo { color: #d9bcff; }
   @media (max-width: 420px) { .pedidoCaja .dos { grid-template-columns: 1fr; } }
+  .paCaja { width: min(760px, 100%); max-height: 92vh; display: flex; flex-direction: column; }
+  .paCaja .cargo { margin: 0 0 2px; color: var(--verde); font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .paCaja .cargo span { color: var(--suave); margin-left: 8px; }
+  .paCab { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+  .paCab button { flex: none; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--borde); background: transparent; color: var(--tinta); cursor: pointer; }
+  .paScroll { overflow-y: auto; min-height: 0; flex: 1 1 auto; padding: 4px 2px; }
+  .paCaja label { display: block; margin: 10px 0 0; font-size: .78rem; font-weight: 600; color: var(--suave); }
+  .paCaja label input:not([type=checkbox]), .paCaja textarea { display: block; width: 100%; margin-top: 5px; padding: 11px 12px; border-radius: 12px; border: 1px solid var(--borde); background: rgba(255,255,255,.06); color: var(--tinta); font: inherit; letter-spacing: 0; }
+  .paServ, .paPlanes { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+  .paServ button, .paPlanes button { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; text-align: left; padding: 13px 14px; border-radius: 14px; border: 1.5px solid var(--borde); background: rgba(255,255,255,.05); color: var(--tinta); font: inherit; cursor: pointer; }
+  .paServ button.sel, .paPlanes button.sel { border-color: var(--verde); background: rgba(27,227,122,.14); }
+  .paServ b, .paPlanes b { font-size: .95rem; }
+  .paServ small, .paPlanes small { color: var(--suave); font-size: .76rem; line-height: 1.4; }
+  .paServ em, .paPlanes em { color: var(--verde); font-style: normal; font-weight: 700; font-size: .85rem; }
+  .paRec { padding: 2px 8px; border-radius: 999px; background: var(--verde); color: var(--verde-tinta, #04120b); font-size: .66rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  .paSec { margin: 18px 0 6px; font-size: 1rem; font-family: var(--f-titulo); }
+  .paGrupo { margin: 10px 0 0; } .paQ { display: block; margin-bottom: 6px; font-size: .8rem; font-weight: 600; color: var(--suave); }
+  .paTotal { margin-top: 16px; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--verde); }
+  .paFila { display: flex; justify-content: space-between; gap: 12px; font-size: .95rem; } .paFila b { color: var(--verde); font-size: 1.1rem; }
+  .paCaja .paPie { margin: 8px 0 0; font-size: .74rem; }
+  .paCaja label.paExtra { display: flex; gap: 8px; align-items: center; }
+  .paCaja label.paExtra input { width: 20px; height: 20px; flex: none; margin: 0; accent-color: var(--verde); }
+  .paLista { margin: 14px 0 0; padding-left: 18px; font-size: .84rem; line-height: 1.6; }
+  .paCaja .nota { margin: 8px 0 0; font-size: .8rem; min-height: 1.2em; }
+  .paBotones { display: flex; gap: 10px; margin-top: 8px; } .paBotones .accion { flex: 1; margin: 0; }
+  .paCaja [hidden] { display: none !important; }
   .elegirCaja { width: min(440px, 100%); text-align: center; }
   .elegirCaja .cargo { margin: 0 0 4px; color: var(--verde); font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
   .dosPers { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 6px; }
@@ -288,6 +314,8 @@
       <button type="button" data-ir="recepcion">Ir a recepción</button>
       <button type="button" data-ir="edicion">Ir a edición Pilot</button>
       <button type="button" data-ir="ventas">Ir a ventas</button>
+      <button type="button" data-ir="asesorProp">Ir al asesor de propuestas</button>
+      <button type="button" id="bPropuestaNueva">Pedir una propuesta</button>
       <button type="button" data-ir="dommy">Ir a Dommy</button>
       <button type="button" data-ir="indisutex">Ir a Indisutex</button>
       <button type="button" data-ir="disenoInd">Diseño y video (Indisutex)</button>
@@ -531,6 +559,15 @@
   </form>
 </div>
 
+<div id="propAsesor" class="visor" hidden>
+  <form id="paForm" class="caja paCaja" autocomplete="off" novalidate>
+    <header class="paCab"><div><p class="cargo">Pilot · Asesor de propuestas <span id="paPaso"></span></p><h2 id="paTitulo"></h2></div><button type="button" id="paCerrar" aria-label="Cerrar">✕</button></header>
+    <div id="paScroll" class="paScroll"><div id="paCuerpo"></div></div>
+    <p class="nota" id="paNota" role="status"></p>
+    <div class="paBotones"><button type="button" id="paAtras" class="accion sec">Atrás</button><button type="submit" id="paSigue" class="accion">Continuar</button></div>
+  </form>
+</div>
+
 <div id="oroAcceso" class="visor" hidden>
   <form id="oroAccesoForm" class="caja" autocomplete="off" style="border-color:rgba(217,168,58,.75)">
     <h2>Piso 5 · Oro y Piel</h2>
@@ -642,4 +679,4 @@
 </div>
 
 <script>window.__OFICINA_BASE__ = ''; window.__OFICINA_FBX_JSON__ = true;</script>
-<script type="module" src="oficina.js?v=43d2e2e0"></script>
+<script type="module" src="oficina.js?v=3ff1fa55"></script>
