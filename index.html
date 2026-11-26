@@ -570,6 +570,17 @@
   </form>
 </div>
 
+<div id="privAcceso" class="visor" hidden>
+  <form id="privForm" class="caja" autocomplete="off">
+    <h2>Piso 6 · Oficina privada</h2>
+    <p>Escribe el código de acceso de esta oficina.</p>
+    <input id="privCodigo" type="password" placeholder="Código de acceso" autocomplete="off" aria-label="Código de acceso">
+    <p id="privError" class="error" hidden>Código incorrecto. Revísalo.</p>
+    <button type="submit" class="accion">Entrar</button>
+    <button type="button" id="privCerrar" class="accion sec">Cancelar</button>
+  </form>
+</div>
+
 <div id="oroAcceso" class="visor" hidden>
   <form id="oroAccesoForm" class="caja" autocomplete="off" style="border-color:rgba(217,168,58,.75)">
     <h2>Equipo de Oro y Piel</h2>
@@ -584,7 +595,7 @@
 <div id="ascensor" class="ascensor" hidden role="dialog" aria-label="Ascensor">
   <p class="cargo">Ascensor</p>
   <h2>¿A qué piso vas?</h2>
-  <button type="button" data-piso="5" hidden><b>6</b><span>Oviedo · propuesta de oficina virtual</span></button>
+  <button type="button" data-piso="5"><b>6</b><span>🔒 Oficina privada · con código</span></button>
   <button type="button" data-piso="4"><b>5</b><span>Oro y Piel · oficina de la empresa</span></button>
   <button type="button" data-piso="3"><b>4</b><span>Indisutex · confección y marcas de pijamas</span></button>
   <button type="button" data-piso="2"><b>3</b><span>Dommy · plataforma para restaurantes</span></button>
@@ -683,4 +694,4 @@
 </div>
 
 <script>window.__OFICINA_BASE__ = ''; window.__OFICINA_FBX_JSON__ = true;</script>
-<script type="module" src="oficina.js?v=076ebc1e"></script>
+<script type="module" src="oficina.js?v=44d755ae"></script>
